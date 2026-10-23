@@ -1,0 +1,16 @@
+import DefaultTheme from 'vitepress/theme'
+import { h } from 'vue'
+import CourseHome from './components/CourseHome.vue'
+import LessonFooter from './components/LessonFooter.vue'
+import BuildRunLab from './components/BuildRunLab.vue'
+import BitsLab from './components/BitsLab.vue'
+import PwmLab from './components/PwmLab.vue'
+import InterruptLab from './components/InterruptLab.vue'
+import './style.css'
+export default {
+  extends: DefaultTheme,
+  Layout: () => h(DefaultTheme.Layout, null, { 'doc-after': () => h(LessonFooter) }),
+  enhanceApp({ app }) {
+    for (const [name, component] of Object.entries({ CourseHome, BuildRunLab, BitsLab, PwmLab, InterruptLab })) app.component(name, component)
+  }
+}

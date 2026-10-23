@@ -1,0 +1,12 @@
+import { chromium } from '@playwright/test';
+import fs from 'node:fs/promises';
+await fs.mkdir('artifacts',{recursive:true});
+const browser=await chromium.launch({channel:'chrome'});
+const page=await browser.newPage({viewport:{width:320,height:800}});
+await page.goto('http://127.0.0.1:4318/from-c-to-mcu/lessons/1-0');
+await page.locator('details.course-callout').first().locator('summary').click();
+console.log(JSON.stringify(await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,items:[...document.querySelectorAll('.VPDoc *')].map(el=>({tag:el.tagName,cls:el.className,right:Math.round(el.getBoundingClientRect().right),left:Math.round(el.getBoundingClientRect().left),width:Math.round(el.getBoundingClientRect().width),client:el.clientWidth,scroll:el.scrollWidth,text:el.textContent?.slice(0,70)})).filter(r=>r.right>innerWidth+1&&r.width>0).slice(0,30)})),null,2));
+await page.screenshot({path:'artifacts/narrow-lesson.png',fullPage:true});
+await page.setViewportSize({width:1440,height:1000});await page.goto('http://127.0.0.1:4318/from-c-to-mcu/');await page.screenshot({path:'artifacts/home-desktop.png',fullPage:true});
+await page.setViewportSize({width:390,height:844});await page.goto('http://127.0.0.1:4318/from-c-to-mcu/labs/#pwm');await page.getByTestId('pwm-lab').screenshot({path:'artifacts/pwm-mobile.png'});
+await browser.close();
