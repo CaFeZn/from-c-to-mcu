@@ -2,9 +2,11 @@
 import { computed, onUnmounted, ref } from 'vue'
 import { ArrowLeft, ArrowRight, Cpu, FileCode2, MemoryStick, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
 import { FLASH_EXAMPLE, FLASH_STEPS, MCU_TOPOLOGY, advanceFlash, createFlashState, hexAddress } from '../mcu-architecture.mjs'
+import { flashFlowPayloads } from '../bus-signals.mjs'
 
 const state = ref(createFlashState())
 const playing = ref(false)
+const flowPayloads = computed(() => flashFlowPayloads(state.value))
 const current = computed(() => FLASH_STEPS[state.value.step])
 const done = computed(() => state.value.step === FLASH_STEPS.length - 1)
 const flashActive = computed(() => ['flash-core', 'flash-core-ram'].includes(current.value.flow))
@@ -87,19 +89,22 @@ onUnmounted(stopPlayback)
       </div>
       <div class="flash-link" :class="{ active: flashActive }" aria-label="Flash 到 CPU" data-testid="flash-read-path">
         <ArrowRight :size="26" aria-hidden="true" /><span>{{ flashActive ? '读取' : '待机' }}</span>
+        <strong class="flash-token" :class="{ visible: flowPayloads.flash !== null }" data-testid="flash-flow-value">{{ flowPayloads.flash ?? '无传输' }}</strong>
       </div>
       <div class="flash-node flash-core" :class="{ active: current.flow !== 'none' && current.flow !== 'map' }">
         <h4><Cpu :size="18" aria-hidden="true" />CPU</h4>
         <p class="flash-node-label">执行与数据搬运</p>
+        <div class="flash-operation" :class="{ visible: flowPayloads.core !== null }" data-testid="flash-operation">{{ flowPayloads.core ?? '等待运算' }}</div>
         <dl>
           <div><dt>指令来源</dt><dd data-testid="flash-code-location">{{ state.codeLocation }}</dd></div>
           <div><dt>当前代码</dt><dd data-testid="flash-instruction">{{ state.instruction }}</dd></div>
           <div><dt>示意运算值</dt><dd><strong data-testid="flash-accumulator">{{ state.accumulator === null ? '未载入' : state.accumulator }}</strong></dd></div>
         </dl>
       </div>
-      <div class="flash-link" :class="{ active: ramActive }" :aria-label="ramReading ? 'SRAM 到 CPU' : 'CPU 到 SRAM'" data-testid="flash-ram-path">
+      <div class="flash-link" :class="{ active: ramActive, returning: ramReading }" :aria-label="ramReading ? 'SRAM 到 CPU' : 'CPU 到 SRAM'" data-testid="flash-ram-path">
         <ArrowLeft v-if="ramReading" :size="26" aria-hidden="true" /><ArrowRight v-else :size="26" aria-hidden="true" />
         <span>{{ ramActive ? ramReading ? '读取' : '写入' : '待机' }}</span>
+        <strong class="flash-token" :class="{ visible: flowPayloads.ram !== null }" data-testid="flash-ram-flow-value">{{ flowPayloads.ram ?? '无传输' }}</strong>
       </div>
       <div class="flash-node flash-ram" :class="{ active: ramActive }">
         <h4><MemoryStick :size="18" aria-hidden="true" />SRAM</h4>
@@ -126,7 +131,7 @@ onUnmounted(stopPlayback)
       </tbody>
     </table>
 
-    <p class="flash-note">固定教学轨迹：地址与变量均为示例，并非实际 ELF 的布局。只摘出相关启动动作，不表示所有工具链的完整固定顺序或时钟周期。</p>
+    <p class="flash-note">固定教学轨迹：地址与变量均为示例，并非实际 ELF 的布局。只摘出相关启动动作，不表示所有工具链的完整固定顺序或时钟周期。流动标记表示整字内容与方向，不是逐位串行传输。</p>
     <details class="flash-boundary">
       <summary>代码与 RAM 的边界</summary>
       <p>此例的静态存储期变量为 counter = 7 与零初始化的 events；counter++ 在初始化完成后发生。被复制的是 .data 初值，Flash 代码不会整体搬入 RAM。</p>
@@ -194,6 +199,14 @@ onUnmounted(stopPlayback)
 .flash-node dd > strong { display: block; min-height: 29px; font-size: 19px; font-weight: 600; line-height: 29px; }
 .flash-initial dd > strong { color: var(--flash-brand); }
 .flash-ram dd > strong { color: var(--flash-runtime); }
+.flash-token { display: block; width: 100%; min-height: 54px; padding: 0 2px; text-align: center; font: 600 11px/18px var(--vp-font-family-mono, monospace); overflow-wrap: anywhere; visibility: hidden; }
+.flash-token.visible { visibility: visible; }
+.flash-operation { height: 32px; font: 600 16px/32px var(--vp-font-family-mono, monospace); color: var(--flash-runtime); visibility: hidden; }
+.flash-operation.visible { visibility: visible; }
+.is-playing .flash-token.visible { animation: flash-payload 1.4s ease-in-out infinite; }
+.is-playing .returning .flash-token.visible { animation-direction: reverse; }
+.is-playing .flash-operation.visible { animation: flash-signal 1.4s ease-in-out infinite; }
+@keyframes flash-payload { from { transform: translateX(-3px); } to { transform: translateX(3px); } }
 .flash-link { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-width: 0; color: var(--flash-muted); }
 .flash-link span { font-size: 12px; }
 .flash-link.active { color: var(--flash-brand); }
@@ -215,7 +228,9 @@ onUnmounted(stopPlayback)
   .flash-node { padding: 12px; }
   .flash-node dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
   .flash-node dl > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .flash-link { flex-direction: row; min-height: 48px; }
+  .flash-link { flex-direction: row; min-height: 64px; gap: 12px; }
+  .flash-token { width: auto; max-width: 60%; min-height: 0; }
+  @keyframes flash-payload { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
   .flash-link svg { transform: rotate(90deg); }
 }
 @media (max-width: 520px) {

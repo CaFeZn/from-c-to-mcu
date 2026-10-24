@@ -12,16 +12,21 @@
     "check:links": "node scripts/check-built-links.mjs"
   },
   "dependencies": {
+    "@lucide/vue": "^1.61.0",
+    "d3-drag": "^3.0.0",
+    "d3-force": "^3.0.0",
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
+    "focus-trap": "^8.2.3",
     "vitepress": "1.6.4",
-    "vue": "^3.5.13",
-    "@lucide/vue": "^1.61.0"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@mdit-vue/shared": "^2.1.4",
     "@playwright/test": "^1.51.1",
     "gray-matter": "^4.0.3",
-    "markdown-it": "^14.1.0",
-    "@mdit-vue/shared": "^2.1.4",
-    "linkedom": "^0.18.12"
+    "linkedom": "^0.18.12",
+    "markdown-it": "^14.1.0"
   },
   "packageManager": "pnpm@11.28.5"
 }

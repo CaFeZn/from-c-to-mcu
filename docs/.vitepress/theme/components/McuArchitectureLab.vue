@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onUnmounted, ref } from 'vue'
-import { ArrowDown, ArrowUp, Cpu, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
+import { Activity, ArrowDown, ArrowUp, Cpu, Network, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
+import BusSignals from './BusSignals.vue'
+import { architectureSignals } from '../bus-signals.mjs'
 import {
   BUS_MODES, BUS_PHASES, MCU_TOPOLOGY, advanceBus, busExplanation,
   busMode, createBusState, hexAddress, switchBusMode,
@@ -8,6 +10,8 @@ import {
 
 const state = ref(createBusState())
 const playing = ref(false)
+const view = ref('path')
+const signals = computed(() => architectureSignals(state.value))
 const mode = computed(() => busMode(state.value.mode))
 const explanation = computed(() => busExplanation(state.value))
 const done = computed(() => state.value.step === 4)
@@ -84,7 +88,12 @@ onUnmounted(stopPlayback)
       <p>{{ explanation }}</p>
     </div>
 
-    <div class="arch-diagram" role="img" :aria-label="mode.label + '，' + route + '，' + BUS_PHASES[state.step]" :class="{ 'is-playing': playing }">
+    <div class="arch-views" role="group" aria-label="总线观察视图">
+      <button type="button" :aria-pressed="view === 'path'" data-testid="mcu-view-path" @click="view = 'path'"><Network :size="16" aria-hidden="true" />数据通路</button>
+      <button type="button" :aria-pressed="view === 'signals'" data-testid="mcu-view-signals" @click="view = 'signals'"><Activity :size="16" aria-hidden="true" />并行信号</button>
+    </div>
+    <div class="arch-visual">
+    <div v-show="view === 'path'" class="arch-diagram" role="img" :aria-label="mode.label + '，' + route + '，' + BUS_PHASES[state.step]" :class="{ 'is-playing': playing }">
       <div class="arch-core" :class="{ updated: done && state.mode !== 'gpio' }">
         <Cpu :size="22" aria-hidden="true" />
         <div><strong>{{ MCU_TOPOLOGY.core }}</strong><span>内核寄存器 R0 / PC</span><span class="arch-core-values"><span>PC <code>{{ hexAddress(state.pc) }}</code></span><span>R0 <code data-testid="mcu-r0-live">{{ state.r0 }}</code></span></span></div>
@@ -96,7 +105,7 @@ onUnmounted(stopPlayback)
             <ArrowDown v-else :size="22" aria-hidden="true" />
             <strong>{{ MCU_TOPOLOGY.instructionPort }}</strong>
             <span>{{ MCU_TOPOLOGY.instructionFabric }} / {{ MCU_TOPOLOGY.flashInterface }}</span>
-            <span class="arch-transfer" :class="{ visible: state.mode === 'flash' && state.step === 3 }">指令返回</span>
+            <span class="arch-transfer" :class="{ visible: state.mode === 'flash' && state.step > 0 && state.step < 4, returning }">{{ state.step < 3 ? hexAddress(state.address) : '指令位未建模' }}</span>
           </div>
           <div class="arch-target flash-target" :class="{ chosen: state.mode === 'flash' && state.step >= 2 }">
             <strong>Flash</strong><span>代码 / 只读初值</span>
@@ -108,7 +117,7 @@ onUnmounted(stopPlayback)
             <ArrowDown v-else :size="22" aria-hidden="true" />
             <strong>{{ MCU_TOPOLOGY.dataPort }}</strong>
             <span>{{ MCU_TOPOLOGY.dataFabric }}</span>
-            <span class="arch-transfer" :class="{ visible: state.mode !== 'flash' && state.step === 3 }">{{ state.mode === 'gpio' ? '写入 0x20' : '返回 42' }}</span>
+            <span class="arch-transfer" :class="{ visible: state.mode !== 'flash' && state.step > 0 && state.step < 4, returning }">{{ state.step < 3 ? hexAddress(state.address) : state.mode === 'gpio' ? '写入 0x20' : '返回 42' }}</span>
           </div>
           <div class="arch-branches">
             <div class="arch-target" :class="{ chosen: state.mode === 'sram' && state.step >= 2 }"><strong>SRAM</strong><span>数据：42</span></div>
@@ -121,6 +130,8 @@ onUnmounted(stopPlayback)
       </div>
     </div>
 
+    <BusSignals v-show="view === 'signals'" v-bind="signals" :playing="playing && view === 'signals'" />
+    </div>
     <table class="arch-state" aria-label="总线与寄存器状态">
       <tbody>
         <tr><th scope="row">访问支路</th><td data-testid="mcu-bus-route">{{ route }}</td></tr>
@@ -181,6 +192,10 @@ onUnmounted(stopPlayback)
 .arch-phase { padding: 14px 0 0; }
 .arch-phase > strong { font-size: 15px; }
 .architecture-lab .arch-phase p { margin: 5px 0 0; min-height: 5em; font-size: 13px; line-height: 1.7; color: var(--arch-muted); overflow-wrap: anywhere; }
+.arch-views { display: flex; gap: 4px; border-bottom: 1px solid var(--arch-line); }
+.arch-views button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 6px 10px; border: 0; border-bottom: 2px solid transparent; color: var(--arch-muted); font: inherit; font-size: 12px; cursor: pointer; }
+.arch-views button[aria-pressed="true"] { color: var(--arch-brand); border-color: var(--arch-brand); }
+.arch-visual { height: 450px; min-width: 0; }
 .arch-diagram { padding: 18px 0 24px; }
 .arch-core { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; border: 2px solid var(--arch-line); min-height: 78px; }
 .arch-core strong, .arch-core span { display: block; }
@@ -199,6 +214,7 @@ onUnmounted(stopPlayback)
 .arch-transfer { visibility: hidden; min-height: 22px; font-variant-numeric: tabular-nums; }
 .arch-transfer.visible { visibility: visible; font-weight: 600; }
 .is-playing .arch-transfer.visible { animation: bus-signal 1.1s ease-in-out infinite; }
+.is-playing .arch-transfer.returning { animation-direction: reverse; }
 .arch-target { position: relative; min-width: 0; min-height: 74px; padding: 10px 5px; border: 1px solid var(--arch-line); color: var(--arch-text); background: var(--arch-bg); text-align: center; overflow-wrap: anywhere; }
 .arch-target strong { display: block; font-size: 14px; }
 .arch-target > span { display: block; font-size: 12px; color: var(--arch-muted); }
@@ -223,7 +239,8 @@ onUnmounted(stopPlayback)
 .architecture-lab .arch-note, .architecture-lab .arch-boundary p { margin: 12px 0 0; font-size: 12px; line-height: 1.75; color: var(--arch-muted); overflow-wrap: anywhere; }
 .arch-boundary { border-top: 1px solid var(--arch-line); margin-top: 16px; padding-top: 12px; }
 .arch-boundary summary { font-size: 13px; cursor: pointer; }
-@keyframes bus-signal { 50% { opacity: .5; } }
+@keyframes bus-signal { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+@media (max-width: 660px) { .arch-visual { height: 530px; } }
 @media (max-width: 520px) {
   .architecture-lab { padding: 14px 12px; }
   .arch-modes button span { display: block; line-height: 1.45; }

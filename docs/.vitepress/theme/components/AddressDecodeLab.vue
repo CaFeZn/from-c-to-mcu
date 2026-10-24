@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, useId, watch } from 'vue'
-import { MapPin, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
+import { Check, CircleHelp, MapPin, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
 import { ADDRESS_EXAMPLES, MEMORY_REGIONS, REGISTER_TARGETS, decodeAddress, formatHex32, parseUint32Hex } from '../mcu-registers.mjs'
 
 const id = useId()
@@ -17,6 +17,7 @@ const decoded = computed(() => parsed.value.ok ? decodeAddress(parsed.value.valu
 const selectedExample = computed(() => parsed.value.ok && ADDRESS_EXAMPLES.some(item => item.address === parsed.value.value) ? parsed.value.hex : '')
 const blocked = computed(() => !parsed.value.ok || decoded.value?.status === 'unaligned')
 const outcome = computed(() => blocked.value ? 'blocked' : stage.value < 4 ? 'pending' : decoded.value?.modeled ? 'decoded' : 'unmodeled')
+const matches = computed(() => [Boolean(decoded.value?.region), decoded.value?.base != null, decoded.value?.offset != null, decoded.value?.modeled === true])
 const regionText = computed(() => stage.value < 1 ? '等待区域译码' : decoded.value?.region?.name ?? '未建模区域')
 const baseText = computed(() => {
   if (stage.value < 2) return '等待基址识别'
@@ -110,11 +111,11 @@ onUnmounted(() => { stop(); motionQuery?.removeEventListener('change', updateMot
 
     <p :id="id + '-result'" class="result" :class="{ warning: blocked || outcome === 'unmodeled' }" role="status" aria-live="polite" data-testid="address-result" :data-outcome="outcome">{{ result }}</p>
 
-    <div class="decode-view">
+    <div class="decode-view" :class="{ decoding: playing && !blocked }">
       <div class="address-map" aria-label="选定地址区域示意">
         <h4>同一个 32 位地址空间</h4>
         <div class="space-boundary">0x00000000</div>
-        <div v-for="region in MEMORY_REGIONS" :key="region.id" class="region" :class="{ selected: stage >= 1 && decoded?.region?.id === region.id }" :data-testid="'address-region-' + region.id">
+        <div v-for="region in MEMORY_REGIONS" :key="region.id" class="region" :class="{ selected: stage >= 1 && decoded?.region?.id === region.id, comparing: stage === 1 && decoded?.region?.id === region.id }" :data-testid="'address-region-' + region.id">
           <strong>{{ region.name }}</strong>
           <span>{{ formatHex32(region.start) }}</span>
           <span>至 {{ formatHex32(region.end) }}</span>
@@ -125,9 +126,9 @@ onUnmounted(() => { stop(); motionQuery?.removeEventListener('change', updateMot
       <div class="decode-route">
         <h4>本次地址 <output data-testid="address-value">{{ parsed.ok ? parsed.hex : '无效' }}</output></h4>
         <ol class="route" aria-label="地址译码路径">
-          <li v-for="(name, index) in stages" :key="name" :class="{ reached: stage > index, active: stage === index + 1 }" :aria-current="stage === index + 1 ? 'step' : undefined">
+          <li v-for="(name, index) in stages" :key="name" :class="{ reached: stage > index, active: stage === index + 1, matched: stage > index && matches[index], missed: stage > index && !matches[index] }" :data-match="stage <= index ? 'pending' : matches[index] ? 'matched' : 'unmodeled'" :aria-current="stage === index + 1 ? 'step' : undefined">
             <span class="step-number">{{ index + 1 }}</span>
-            <div><span class="route-label">{{ name }}{{ index === 2 && decoded?.status === 'memory' ? ' / 区内偏移' : '' }}</span>
+            <div><span class="route-label">{{ name }}{{ index === 2 && decoded?.status === 'memory' ? ' / 区内偏移' : '' }}<span class="match-mark" :class="{ visible: stage > index }" :title="matches[index] ? '已匹配' : '未建模'"><Check v-if="matches[index]" :size="14" aria-label="已匹配" /><CircleHelp v-else :size="14" aria-label="未建模" /></span></span>
               <output v-if="index === 0" data-testid="address-region">{{ regionText }}</output>
               <output v-else-if="index === 1" data-testid="address-base">{{ baseText }}</output>
               <output v-else-if="index === 2" data-testid="address-offset">{{ offsetText }}</output>
@@ -182,12 +183,20 @@ onUnmounted(() => { stop(); motionQuery?.removeEventListener('change', updateMot
 .decode-route h4 { display: flex; flex-wrap: wrap; gap: 6px; }
 .decode-route h4 output { font: 14px/1.6 var(--vp-font-family-mono, monospace); }
 .address-lab .route { list-style: none; margin: 0; padding: 0; }
-.route li { display: flex; align-items: flex-start; gap: 10px; margin: 0; min-height: 92px; padding: 10px 0; border-top: 1px solid var(--vp-c-divider, #dfe6e4); }
+.route li { position: relative; display: flex; align-items: flex-start; gap: 10px; margin: 0; min-height: 92px; padding: 10px 0; border-top: 1px solid var(--vp-c-divider, #dfe6e4); }
 .step-number { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex: none; border: 1px solid var(--vp-c-divider, #dfe6e4); border-radius: 50%; color: var(--vp-c-text-2, #5c6a69); font-variant-numeric: tabular-nums; }
 .route .reached .step-number { border-color: var(--vp-c-brand-1, #087f8c); color: var(--vp-c-brand-1, #087f8c); }
 .route .active .step-number { background: var(--vp-c-brand-1, #087f8c); color: var(--vp-c-bg, #fff); }
 .route li > div { min-width: 0; }
-.route-label { display: block; color: var(--vp-c-text-2, #5c6a69); font-size: 13px; }
+.route-label { display: flex; align-items: center; gap: 6px; color: var(--vp-c-text-2, #5c6a69); font-size: 13px; }
+.match-mark { display: inline-flex; flex: none; visibility: hidden; }
+.match-mark.visible { visibility: visible; color: var(--vp-c-brand-1, #087f8c); }
+.missed .match-mark.visible { color: #b6533e; }
+.route li.matched::after { content: ''; position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: var(--vp-c-brand-1, #087f8c); transform-origin: left; }
+.decoding .route li.active.matched::after { animation: decode-match .85s ease-in-out infinite; }
+.decoding .region.comparing { animation: decode-region .85s ease-in-out infinite; }
+@keyframes decode-match { from { transform: scaleX(.1); } to { transform: scaleX(1); } }
+@keyframes decode-region { 50% { box-shadow: inset 5px 0 var(--vp-c-brand-1, #087f8c); } }
 .route output { display: block; overflow-wrap: anywhere; font-size: 14px; font-weight: 600; }
 .address-lab .result { min-height: 76px; margin: 18px 0; padding: 12px 0 12px 12px; border-left: 3px solid var(--vp-c-brand-1, #087f8c); font-size: 14px; line-height: 1.75; overflow-wrap: anywhere; }
 .address-lab .result.warning { border-color: #b6533e; }

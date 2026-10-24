@@ -20,5 +20,8 @@ export default defineConfig({
     editLink: { pattern: 'https://github.com/CaFeZn/from-c-to-mcu/edit/main/docs/:path', text: '在 GitHub 编辑此页' }
   },
   markdown: { lineNumbers: true, config(md) { md.use(courseMarkdown, { routes }); } },
-  vite: { server: { host: '127.0.0.1' } }
+  vite: { server: {
+    host: '127.0.0.1',
+    watch: { ignored: ['**/.vitepress/dist/**', '**/.vitepress/cache/**', '**/.*.tmpdir', '**/.*.tmpdir/**'] }
+  } }
 });

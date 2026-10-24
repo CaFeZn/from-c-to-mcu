@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { createRequire, stripTypeScriptTypes } from 'node:module'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { dirname, resolve } from 'node:path'
+import { basename, dirname, resolve } from 'node:path'
 import { createSSRApp } from 'vue'
 import { renderToString } from 'vue/server-renderer'
 import { compileScript, compileStyle, parse } from 'vue/compiler-sfc'
@@ -189,14 +189,22 @@ async function loadSfc(name, ssr) {
   return { filename, source, id, code: stripTypeScriptTypes(compiled.content), styles }
 }
 
+async function ssrModuleUrl(name) {
+  const compiled = await loadSfc(name, true)
+  let code = compiled.code
+  for (const match of compiled.code.matchAll(/from (['"])([^'"]+)\1/g)) {
+    const specifier = match[2]
+    const url = specifier.endsWith('.vue')
+      ? await ssrModuleUrl(basename(specifier, '.vue'))
+      : pathToFileURL(specifier.startsWith('.') ? resolve(dirname(compiled.filename), specifier) : require.resolve(specifier)).href
+    code = code.replace(match[0], 'from ' + JSON.stringify(url))
+  }
+  return 'data:text/javascript;base64,' + Buffer.from(code).toString('base64')
+}
+
 for (const [name, root] of [['AddressDecodeLab', 'address-decode-lab'], ['RegisterWriteLab', 'register-write-lab']]) {
   test(name + ' compiles scoped styles and renders on the server without timers or browser globals', async () => {
-    const compiled = await loadSfc(name, true)
-    const code = compiled.code.replace(/from (['"])([^'"]+)\1/g, (_, quote, specifier) => {
-      const absolute = specifier.startsWith('.') ? resolve(dirname(compiled.filename), specifier) : require.resolve(specifier)
-      return 'from ' + JSON.stringify(pathToFileURL(absolute).href)
-    })
-    const component = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'))
+    const component = await import(await ssrModuleUrl(name))
     const html = await renderToString(createSSRApp(component.default))
     assert.ok(html.includes('data-testid="' + root + '"'))
     assert.ok(html.includes('data-stage="0"'))
@@ -215,10 +223,18 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
   try {
     const compiled = await Promise.all(['AddressDecodeLab', 'RegisterWriteLab'].map(name => loadSfc(name, false)))
     const scripts = []
+    const childStyles = []
+    const vuePlugin = { name: 'compile-nested-labs', setup(builder) {
+      builder.onLoad({ filter: /\.vue$/ }, async ({ path }) => {
+        const child = await loadSfc(basename(path, '.vue'), false)
+        childStyles.push(child.styles)
+        return { contents: child.code.replace('export default', 'const Component =') + '\nComponent.__scopeId = ' + JSON.stringify(child.id) + ';\nexport default Component;', loader: 'js', resolveDir: dirname(path) }
+      })
+    } }
     for (const [index, item] of compiled.entries()) {
       const source = item.code.replace('export default', 'const Lab =') + '\nLab.__scopeId = ' + JSON.stringify(item.id) + ';\n' +
         "import { createApp } from 'vue'; globalThis.labApps ||= []; globalThis.labApps.push(createApp(Lab)); globalThis.labApps[" + index + "].mount('#lab-" + index + "');"
-      const bundle = await build({ stdin: { contents: source, resolveDir: dirname(item.filename), loader: 'js' }, bundle: true, format: 'iife', write: false, define: { 'process.env.NODE_ENV': '"production"' } })
+      const bundle = await build({ stdin: { contents: source, resolveDir: dirname(item.filename), loader: 'js' }, bundle: true, format: 'iife', write: false, plugins: [vuePlugin], define: { 'process.env.NODE_ENV': '"production"' } })
       scripts.push(bundle.outputFiles[0].text)
     }
     const page = await browser.newPage()
@@ -226,7 +242,7 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     page.on('pageerror', error => errors.push(error.message))
     await page.setContent('<div class="vp-doc" style="max-width:820px;margin:auto;padding:24px"><div id="lab-0"></div><div id="lab-1"></div></div>')
     const sharedStyles = await readFile(new URL('../docs/.vitepress/theme/style.css', import.meta.url), 'utf8')
-    await page.addStyleTag({ content: 'body{margin:0;font-family:Arial,sans-serif}*{box-sizing:border-box}' + sharedStyles + compiled.map(item => item.styles).join('\n') })
+    await page.addStyleTag({ content: 'body{margin:0;font-family:Arial,sans-serif}*{box-sizing:border-box}' + sharedStyles + compiled.map(item => item.styles).concat(childStyles).join('\n') })
     await page.evaluate(() => {
       globalThis.labTimers = new Set()
       globalThis.labMotionListeners = new Set()
@@ -250,11 +266,13 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     assert.equal(await page.evaluate(() => globalThis.labMotionListeners.size), 2)
     const address = page.getByTestId('address-decode-lab')
     const register = page.getByTestId('register-write-lab')
+    const signals = register.getByTestId('bus-signals')
     assert.equal(await address.getAttribute('data-stage'), '0')
     assert.equal(await register.getAttribute('data-stage'), '0')
     for (let i = 0; i < 4; i += 1) await page.getByTestId('address-step').click()
     assert.equal(await page.getByTestId('address-target').textContent(), 'GPIOA_BSRR')
     assert.equal(await page.getByTestId('address-offset').textContent(), '0x00000018')
+    assert.equal(await address.locator('.route li[data-match="matched"]').count(), 4)
     await page.getByTestId('address-input').fill('0x40020019')
     assert.equal(await address.getAttribute('data-stage'), '0')
     assert.equal(await page.getByTestId('address-step').isDisabled(), true)
@@ -262,6 +280,7 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     await page.getByTestId('address-input').fill('0x10000000')
     for (let i = 0; i < 4; i += 1) await page.getByTestId('address-step').click()
     assert.equal(await page.getByTestId('address-result').getAttribute('data-outcome'), 'unmodeled')
+    assert.equal(await address.locator('.route li[data-match="matched"]').count(), 0)
     assert.equal(await register.getAttribute('data-stage'), '0')
     for (const example of ADDRESS_EXAMPLES) {
       await page.getByTestId('address-example').selectOption(formatHex32(example.address))
@@ -272,7 +291,12 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     }
     for (let i = 0; i < 3; i += 1) await page.getByTestId('register-step').click()
     assert.equal(await page.getByTestId('register-odr-current').textContent(), '0x0000')
+    await page.getByTestId('register-view-signals').click()
+    assert.equal(await signals.getAttribute('data-status'), 'valid')
+    assert.equal(await signals.getByTestId('signal-word').textContent(), '0x00000020')
+    assert.equal(await signals.locator('[data-bit="5"]').getAttribute('data-level'), '1')
     await page.getByTestId('register-step').click()
+    assert.equal(await signals.getAttribute('data-status'), 'unspecified')
     assert.equal(await page.getByTestId('register-odr-after').textContent(), '0x0020')
     assert.equal(await page.getByTestId('register-pin-state').textContent(), '待本次引脚阶段')
     await page.getByTestId('register-step').click()
@@ -287,6 +311,8 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     await page.getByTestId('register-clock').uncheck()
     assert.equal(await page.getByTestId('register-step').isDisabled(), true)
     assert.match(await page.getByTestId('register-result').textContent(), /前置条件不足/)
+    assert.equal(await signals.getAttribute('data-status'), 'unspecified')
+    assert.equal(await signals.locator('[data-level="unknown"][data-bit]').count(), 32)
     await page.getByTestId('register-clock').check()
     await page.getByTestId('register-output-mode').uncheck()
     assert.equal(await page.getByTestId('register-step').isDisabled(), true)
@@ -299,6 +325,7 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     assert.equal(await page.getByTestId('register-odr-after').textContent(), '0x8000')
     assert.equal(await page.getByTestId('register-pin-state').textContent(), '1')
     assert.match(await page.getByTestId('register-code').textContent(), /0x80008000u;/)
+    await page.getByTestId('register-view-bits').click()
     for (const width of [320, 390, 1440]) {
       await page.setViewportSize({ width, height: 1000 })
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth), false, 'page overflow at ' + width)
@@ -312,11 +339,18 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
       await page.getByTestId('register-reset').click()
       const addressHeight = (await address.boundingBox()).height
       const registerHeight = (await register.boundingBox()).height
+      await page.getByTestId('register-view-signals').click()
+      assert.equal((await register.boundingBox()).height, registerHeight, 'signal view height at ' + width)
       for (let step = 0; step < 5; step += 1) {
         if (step < 4) await page.getByTestId('address-step').click()
         await page.getByTestId('register-step').click()
         assert.equal((await address.boundingBox()).height, addressHeight, 'address layout shift at ' + width + ', step ' + step)
         assert.equal((await register.boundingBox()).height, registerHeight, 'register layout shift at ' + width + ', step ' + step)
+        assert.equal(await signals.getAttribute('data-status'), step === 2 ? 'valid' : 'unspecified')
+        if (step === 2) {
+          assert.deepEqual(await signals.locator('[data-level="1"][data-bit]').evaluateAll(bits => bits.map(bit => Number(bit.dataset.bit))), [31, 15])
+          if (process.env.MCU_SIGNAL_ARTIFACTS) await register.locator('.command-visual').screenshot({ path: process.env.MCU_SIGNAL_ARTIFACTS + '/bsrr-' + width + '.png', animations: 'disabled' })
+        }
       }
       for (const invalid of ['-1', '0x100000000', '0xZZ']) {
         await page.getByTestId('address-input').fill(invalid)
@@ -328,6 +362,7 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
       }
       await page.getByTestId('address-input').fill('0x40020018')
       await page.getByTestId('register-write-value').fill('0x80008000')
+      await page.getByTestId('register-view-bits').click()
     }
     await page.getByTestId('register-reset').click()
     await page.getByTestId('register-play').click()
@@ -335,6 +370,14 @@ test('browser: independent stages, invalidation, reduced motion and responsive b
     await page.getByTestId('register-write-value').fill('0x20')
     assert.equal(await register.getAttribute('data-playing'), 'false')
     assert.equal(await register.getAttribute('data-stage'), '0')
+    await page.getByTestId('register-view-signals').click()
+    for (let i = 0; i < 3; i++) await page.getByTestId('register-step').click()
+    assert.equal(await signals.getAttribute('data-status'), 'valid')
+    await page.getByTestId('register-clock').uncheck()
+    assert.equal(await signals.getAttribute('data-status'), 'unspecified')
+    assert.equal(await signals.locator('.level-line').count(), 0)
+    assert.equal(await signals.locator('.window-sweep').count(), 0)
+    await page.getByTestId('register-clock').check()
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.getByTestId('register-play').click()
     assert.equal(await register.getAttribute('data-playing'), 'false')

@@ -164,7 +164,7 @@ async function bundleComponents(ssr) {
         const source = await readFile(path, 'utf8')
         const { descriptor, errors } = parse(source, { filename: path })
         assert.deepEqual(errors, [])
-        const id = path.includes('McuArchitectureLab') ? 'mcu-lab-test' : 'flash-lab-test'
+        const id = path.includes('McuArchitectureLab') ? 'mcu-lab-test' : path.includes('BusSignals') ? 'signals-lab-test' : 'flash-lab-test'
         const script = compileScript(descriptor, {
           id, inlineTemplate: true, genDefaultAs: '__component',
           templateOptions: { ssr, compilerOptions: { scopeId: 'data-v-' + id } },
@@ -216,7 +216,7 @@ test('both components compile and SSR-render initial state without browser APIs 
   }
 })
 
-test('browser: controls, isolation, timer cleanup and 320/390/1280px layout', { skip: process.env.MCU_LAB_BROWSER !== '1', timeout: 120000 }, async () => {
+test('browser: controls, isolation, timer cleanup and 320/390/1440px layout', { skip: process.env.MCU_LAB_BROWSER !== '1', timeout: 120000 }, async () => {
   const { chromium } = await import('@playwright/test')
   const script = await bundleComponents(false)
   const theme = await readFile(new URL('../docs/.vitepress/theme/style.css', import.meta.url), 'utf8')
@@ -229,7 +229,7 @@ test('browser: controls, isolation, timer cleanup and 320/390/1280px layout', { 
   let browser
   try {
     browser = await chromium.launch({ channel: process.env.CI ? undefined : 'chrome' })
-    for (const width of [320, 390, 1280]) {
+    for (const width of [320, 390, 1440]) {
       const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' })
       const page = await context.newPage()
       const errors = []
@@ -262,19 +262,42 @@ test('browser: controls, isolation, timer cleanup and 320/390/1280px layout', { 
       assert.equal(await step('flash-execution-lab'), '0')
       assert.equal(await page.evaluate(() => window.__intervals.size), 0)
       await noOverflow()
+      const signalRoot = byId('mcu-bus-lab').getByTestId('bus-signals')
       for (const mode of BUS_MODES) {
         await click('mcu-mode-' + mode.id)
+        const initialHeight = (await byId('mcu-bus-lab').boundingBox()).height
+        await click('mcu-view-signals')
+        assert.equal((await byId('mcu-bus-lab').boundingBox()).height, initialHeight)
+        assert.equal(await signalRoot.getAttribute('data-status'), 'unspecified')
         for (let i = 1; i <= 4; i++) {
           await click('mcu-bus-next')
           assert.equal(await step('mcu-bus-lab'), String(i))
           assert.equal(await text('mcu-bus-address'), hexAddress(mode.address))
           assert.equal(await text('mcu-bus-r0'), mode.id === 'sram' && i === 4 ? '42' : '0')
           assert.equal(await text('mcu-bus-pa5'), mode.id === 'gpio' && i === 4 ? '高电平（1）' : '低电平（0）')
+          assert.equal(await signalRoot.getAttribute('data-status'), i !== 3 ? 'unspecified' : mode.id === 'flash' ? 'unmodeled' : 'valid')
+          if (i === 1) {
+            await signalRoot.getByTestId('signal-channel').selectOption('address')
+            assert.equal(await signalRoot.getByTestId('signal-word').innerText(), hexAddress(mode.address))
+            await signalRoot.getByTestId('signal-channel').selectOption('data')
+          }
+          if (i === 3) {
+            const highs = await signalRoot.locator('[data-level="1"][data-bit]').evaluateAll(bits => bits.map(bit => Number(bit.dataset.bit)))
+            assert.deepEqual(highs, mode.id === 'gpio' ? [5] : mode.id === 'sram' ? [5, 3, 1] : [])
+            assert.equal(await signalRoot.locator('[data-bit]').count(), 32)
+            await signalRoot.locator('[data-bit="31"]').click()
+            assert.equal(await signalRoot.getByTestId('signal-window').getAttribute('data-level'), mode.id === 'flash' ? 'unknown' : '0')
+            await signalRoot.locator('[data-bit="5"]').click()
+            if (process.env.MCU_SIGNAL_ARTIFACTS) await byId('mcu-bus-lab').locator('.arch-visual').screenshot({ path: process.env.MCU_SIGNAL_ARTIFACTS + '/mcu-' + mode.id + '-' + width + '.png', animations: 'disabled' })
+          }
+          assert.equal((await byId('mcu-bus-lab').boundingBox()).height, initialHeight)
           await noOverflow()
         }
         assert.equal(await byId('mcu-bus-next').isDisabled(), true)
         await click('mcu-bus-reset')
         assert.equal(await text('mcu-bus-address'), '未发生')
+        assert.equal(await signalRoot.getAttribute('data-status'), 'unspecified')
+        await click('mcu-view-path')
       }
       await click('mcu-bus-play')
       await page.clock.runFor(1100)
@@ -293,6 +316,19 @@ test('browser: controls, isolation, timer cleanup and 320/390/1280px layout', { 
         assert.equal(await text('flash-ram-counter'), state.ram.counter === null ? '未知' : String(state.ram.counter))
         assert.equal(await text('flash-ram-events'), state.ram.events === null ? '未知' : String(state.ram.events))
         assert.equal(await text('flash-initial-value'), '7')
+        if (state.step === 4 || state.step === 7) assert.equal(await text('flash-flow-value'), '指令位未建模')
+        if (state.step === 5) {
+          assert.equal(await text('flash-flow-value'), '7')
+          assert.equal(await text('flash-ram-flow-value'), '7')
+          await page.emulateMedia({ reducedMotion: 'no-preference' })
+          await click('flash-play')
+          assert.equal(await byId('flash-flow-value').evaluate(el => el.getAnimations().some(animation => animation.playState === 'running')), true)
+          await click('flash-play')
+          assert.equal(await byId('flash-flow-value').evaluate(el => el.getAnimations().length), 0)
+          await page.emulateMedia({ reducedMotion: 'reduce' })
+        }
+        if (state.step === 9) assert.equal(await text('flash-operation'), '7 + 1 = 8')
+        if (state.step === 10) assert.equal(await text('flash-ram-flow-value'), '8')
         await noOverflow()
       }
       assert.equal(await text('flash-reset-vector'), '0x08000201')
@@ -314,6 +350,16 @@ test('browser: controls, isolation, timer cleanup and 320/390/1280px layout', { 
       await page.clock.runFor(3300)
       assert.equal(await step('mcu-bus-lab'), '3')
       assert.equal(await byId('mcu-bus-lab').locator('.arch-transfer.visible').evaluate(el => getComputedStyle(el).animationName), 'none')
+      await click('mcu-view-signals')
+      assert.equal(await signalRoot.locator('.window-sweep').evaluate(el => getComputedStyle(el).animationName), 'none')
+      await page.emulateMedia({ reducedMotion: 'no-preference' })
+      assert.equal(await signalRoot.locator('.window-sweep').evaluate(el => el.getAnimations().some(animation => animation.playState === 'running')), true)
+      await click('mcu-bus-play')
+      assert.equal(await signalRoot.locator('.window-sweep').evaluate(el => el.getAnimations().length), 0)
+      assert.equal(await signalRoot.getAttribute('data-status'), 'valid')
+      await click('mcu-bus-play')
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      assert.equal(await signalRoot.locator('.window-sweep').evaluate(el => getComputedStyle(el).animationName), 'none')
       await click('mcu-bus-reset')
       assert.equal(await page.evaluate(() => window.__intervals.size), 1)
       await page.evaluate(() => window.__labs.hideFlash())

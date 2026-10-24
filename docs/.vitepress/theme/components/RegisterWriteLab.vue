@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, useId, watch } from 'vue'
-import { ArrowDown, ArrowUp, CircuitBoard, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
+import { Activity, ArrowDown, ArrowUp, CircuitBoard, Grid2X2, Pause, Play, RotateCcw, StepForward } from '@lucide/vue'
+import BusSignals from './BusSignals.vue'
 import { GPIOA_BSRR, GPIOA_ODR, bits16, bsrrForPin, evaluateRegisterWrite, formatHex16, formatHex32, parseUint32Hex, splitBsrr } from '../mcu-registers.mjs'
 
 const id = useId()
@@ -12,6 +13,7 @@ const odr = ref(0)
 const before = ref(0)
 const stage = ref(0)
 const playing = ref(false)
+const commandView = ref('bits')
 const reducedMotion = ref(false)
 const pinOptions = Array.from({ length: 16 }, (_, index) => index)
 const stages = ['CPU 写入', '总线译码', 'BSRR 命令', 'ODR 锁存', '引脚逻辑']
@@ -135,7 +137,12 @@ onUnmounted(() => { stop(); motionQuery?.removeEventListener('change', updateMot
     </ol>
     <p :id="id + '-result'" class="result" :class="{ warning: !allowed }" role="status" aria-live="polite" data-testid="register-result" :data-outcome="outcome">{{ result }}</p>
 
-    <div class="command-map" :class="{ executing: stage === 3 }">
+    <div class="command-views" role="group" aria-label="BSRR 观察视图">
+      <button type="button" :aria-pressed="commandView === 'bits'" data-testid="register-view-bits" @click="commandView = 'bits'"><Grid2X2 :size="16" aria-hidden="true" />命令位图</button>
+      <button type="button" :aria-pressed="commandView === 'signals'" data-testid="register-view-signals" @click="commandView = 'signals'"><Activity :size="16" aria-hidden="true" />并行信号</button>
+    </div>
+    <div class="command-visual">
+    <div v-show="commandView === 'bits'" class="command-map" :class="{ executing: allowed && stage === 3, flowing: playing && allowed && stage === 3 }">
       <h4>本次 BSRR 命令 <span>{{ stage >= 3 ? '已译码' : '待发送' }}</span></h4>
       <p class="register-address">地址 <code>{{ formatHex32(GPIOA_BSRR) }}</code> · 这是写命令，不是 BSRR 存储快照</p>
       <div v-for="row in commandRows" :key="row.key" class="command-row" :class="row.key">
@@ -149,6 +156,10 @@ onUnmounted(() => { stop(); motionQuery?.removeEventListener('change', updateMot
       <p class="mask-rule">1 发出命令，0 不影响；同位 BS 与 BR 都为 1 时，置位优先。</p>
     </div>
 
+    <BusSignals v-show="commandView === 'signals'" :address="GPIOA_BSRR" :address-active="allowed && (stage === 1 || stage === 2)"
+      :value="parsed.ok ? parsed.value : null" :active="allowed && stage === 3" :blocked="!allowed" :focus-bit="pin"
+      :playing="playing && commandView === 'signals'" />
+    </div>
     <div class="latch-view" :class="{ executing: stage === 4 }">
       <h4>ODR 输出锁存 <code>{{ formatHex32(GPIOA_ODR) }}</code></h4>
       <div class="latch-values"><div><span>本次写入前</span><output data-testid="register-odr-before">{{ formatHex16(before) }}</output></div><div><span>本次写入后</span><output data-testid="register-odr-after">{{ stage >= 4 ? formatHex16(odr) : '待写入' }}</output></div><div><span>当前锁存</span><output data-testid="register-odr-current">{{ formatHex16(odr) }}</output></div></div>
@@ -201,6 +212,13 @@ onUnmounted(() => { stop(); motionQuery?.removeEventListener('change', updateMot
 .write-route li.active .step-number { background: var(--vp-c-brand-1, #087f8c); color: var(--vp-c-bg, #fff); border-color: transparent; }
 .register-lab .result { min-height: 90px; margin: 12px 0 18px; padding: 12px 0 12px 12px; border-left: 3px solid var(--vp-c-brand-1, #087f8c); font-size: 14px; line-height: 1.75; overflow-wrap: anywhere; }
 .register-lab .result.warning { border-color: var(--reset-color); }
+.command-views { display: flex; gap: 4px; border-bottom: 1px solid var(--vp-c-divider, #dfe6e4); }
+.command-views button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 6px 10px; border: 0; border-bottom: 2px solid transparent; color: var(--vp-c-text-2, #5c6a69); font: inherit; font-size: 12px; cursor: pointer; }
+.command-views button[aria-pressed="true"] { color: var(--vp-c-brand-1, #087f8c); border-color: var(--vp-c-brand-1, #087f8c); }
+.command-visual { height: 440px; min-width: 0; }
+.command-map.flowing .bit { animation: command-window .85s ease-in-out infinite; }
+@keyframes command-window { 50% { border-bottom-width: 4px; } }
+@media (max-width: 660px) { .command-visual { height: 530px; } }
 .command-map, .latch-view { border-top: 1px solid var(--vp-c-divider, #dfe6e4); padding: 16px 0; }
 .command-map h4, .latch-view h4 { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 .command-map h4 > span { color: var(--vp-c-text-2, #5c6a69); font-weight: 400; font-size: 13px; }
