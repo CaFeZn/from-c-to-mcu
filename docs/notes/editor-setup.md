@@ -15,6 +15,8 @@ sourceKey: 【拓展】让VSCode看懂CMake工程
 
 先看 CMake 的构建结果。如果它也失败，先修第一条构建错误；只有构建成功、提示不对，才沿着下面检查。不要为了消除红线，把真实的头文件和代码删掉。
 
+先确认当前窗口的 Profile：本文的 `c-lab` 用 `C-PC`，板级工程用 `STM32`。扩展装在另一套 Profile 里，不一定在当前窗口启用；先切对配置再检查扩展。后面的 JSON 都写入**当前工程**的 `.vscode/settings.json`，不是向所有 Profile 共用的用户设置里追加。
+
 ## 已经用 C/C++ 扩展：先接通现有配置
 
 起步篇默认安装了 Microsoft 的 C/C++ 扩展。先按 [[1.0_搭建环境#第五步：程序能跑，让编辑器也看懂它]]，让它使用 CMake Tools 提供的配置：
@@ -47,7 +49,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ### 2. 安装分析扩展，并让它找到 clangd 程序
 
-在 VS Code 的扩展面板安装 **clangd**，扩展 ID 是 `llvm-vs-code-extensions.vscode-clangd`。
+先确认打开的是 `c-lab`、当前 Profile 是 `C-PC`，再在扩展面板安装 **clangd**，扩展 ID 是 `llvm-vs-code-extensions.vscode-clangd`。只在需要它的 Profile 中启用，不用为了这一份 PC 练习改动 STM32 窗口的扩展组合。
 
 扩展是 VS Code 和分析程序之间的连接。若它提示找不到 clangd，可以按提示下载 clangd；若电脑上已有一个版本，在设置中的 `clangd.path` 指向实际的可执行文件。安装扩展、找到 clangd 程序和找到 gcc 是三件不同的事，不要把其中一个路径填到另一个位置。
 
@@ -96,7 +98,8 @@ C/C++ 扩展可以保留，用它提供调试能力；但代码分析交给 clan
 | 工程自己的 `util.h` 找不到 | `target_include_directories` 是否包含正确目录；不要只改编辑器设置来掩盖构建清单的问题。 |
 | 新加的 `.c` 没有正确提示 | 源文件是否加入 CMake 目标，是否重新配置；检查数据库里有没有这一份文件的记录。 |
 | 出现两份重复诊断 | 是否同时启用了 C/C++ IntelliSense 与 clangd。 |
-| 切到单片机工程后提示不正常 | 不沿用 PC 的 gcc 路径。先构建实际单片机工程，再让分析工具读取它的数据库和工具链。 |
+| 换 Profile 后扩展命令消失 | 检查当前窗口关联的 Profile，以及其中是否启用了对应扩展；不要只检查另一套配置的扩展列表。 |
+| 切到单片机工程后提示不正常 | 确认是 `STM32` Profile，但不能只切 Profile：不要沿用 PC 的 gcc 路径。先构建实际单片机工程，再让分析工具读取该工程的数据库和 ARM 工具链。 |
 
 > [!tip]- 命令行检查，只在需要排查时用
 > 在工程目录执行 `cmake -S . -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`，可以明确要求导出数据库。
