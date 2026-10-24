@@ -225,9 +225,17 @@
       "link": "/notes/source-to-program"
     },
     {
+      "title": "【原理】单片机内部结构",
+      "link": "/notes/mcu-architecture"
+    },
+    {
+      "title": "【原理】寄存器与内存映射",
+      "link": "/notes/memory-mapped-io"
+    },
+    {
       "title": "让 VS Code 看懂 CMake 工程：能构建，却还在画红线",
       "link": "/notes/editor-setup"
     }
   ],
-  "pendingCount": 97
+  "pendingCount": 95
 }

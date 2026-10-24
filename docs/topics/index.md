@@ -9,9 +9,11 @@ search: false
 
 ## 已有内容
 
-- [【原理】交叉编译与工具链](/notes/cross-compilation)
-- [【原理】从源码到可执行文件](/notes/source-to-program)
-- [让 VS Code 看懂 CMake 工程：能构建，却还在画红线](/notes/editor-setup)
+- <span id="topic-92a4be8ed3"></span>[【原理】交叉编译与工具链](/notes/cross-compilation)
+- <span id="topic-30b3aa2d2d"></span>[【原理】从源码到可执行文件](/notes/source-to-program)
+- <span id="topic-a842ebf1eb"></span>[【原理】单片机内部结构](/notes/mcu-architecture)
+- <span id="topic-5566ad0f25"></span>[【原理】寄存器与内存映射](/notes/memory-mapped-io)
+- <span id="topic-a5b48ea0d5"></span>[让 VS Code 看懂 CMake 工程：能构建，却还在画红线](/notes/editor-setup)
 
 ## 原理 · 待写
 
@@ -35,12 +37,10 @@ search: false
 | <span id="topic-3ac2c59cbb"></span>volatile与编译器优化 | 待写 |
 | <span id="topic-41411edc75"></span>中断与NVIC | 待写 |
 | <span id="topic-047843ecf5"></span>函数指针与间接调用 | 待写 |
-| <span id="topic-a842ebf1eb"></span>单片机内部结构 | 待写 |
 | <span id="topic-fd4e5e1d61"></span>变量与内存 | 待写 |
 | <span id="topic-13b2a37518"></span>可执行文件格式 | 待写 |
 | <span id="topic-9f4e84f763"></span>启动流程与链接脚本 | 待写 |
 | <span id="topic-27ed29f86a"></span>定时器工作原理 | 待写 |
-| <span id="topic-5566ad0f25"></span>寄存器与内存映射 | 待写 |
 | <span id="topic-251e35b8fb"></span>引脚复用机制 | 待写 |
 | <span id="topic-05899f1fa5"></span>弱符号如何让回调生效 | 待写 |
 | <span id="topic-0283ec4a59"></span>按键抖动与消抖 | 待写 |

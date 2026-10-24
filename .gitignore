@@ -4,5 +4,7 @@ docs/.vitepress/dist/
 test-results/
 playwright-report/
 artifacts/
+# Private authoring archive; public course content is maintained in docs/.
+authoring/
 .env*
 .DS_Store

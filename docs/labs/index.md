@@ -30,3 +30,8 @@ outline: false
 中断处理尽快返回，把需要慢慢做的业务留给主循环。这里是一次事件的执行顺序示意，不模拟中断优先级、多个事件合并或硬件延迟；共享数据的并发问题继续看 [5.4](/lessons/5-4)。
 
 <ClientOnly><InterruptLab /></ClientOnly>
+
+## 单片机原理
+
+- [内核、总线与 Flash 执行](/notes/mcu-architecture)：分别观察取指、SRAM 读数、GPIO 写入，以及复位后的变量初始化。
+- [地址译码与寄存器写入](/notes/memory-mapped-io)：把地址拆成区域、基址和偏移，再跟随 BSRR 请求观察 ODR 和引脚逻辑。

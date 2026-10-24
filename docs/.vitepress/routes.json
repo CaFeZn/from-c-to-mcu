@@ -267,8 +267,8 @@
     "pending": true
   },
   "【原理】单片机内部结构": {
-    "link": "/topics/#topic-a842ebf1eb",
-    "pending": true
+    "link": "/notes/mcu-architecture",
+    "pending": false
   },
   "【原理】变量与内存": {
     "link": "/topics/#topic-fd4e5e1d61",
@@ -287,8 +287,8 @@
     "pending": true
   },
   "【原理】寄存器与内存映射": {
-    "link": "/topics/#topic-5566ad0f25",
-    "pending": true
+    "link": "/notes/memory-mapped-io",
+    "pending": false
   },
   "【原理】引脚复用机制": {
     "link": "/topics/#topic-251e35b8fb",
