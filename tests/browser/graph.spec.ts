@@ -34,7 +34,7 @@ test('current-file graph has real neighbors and follows node navigation', async 
   expect(nodes).toContain(current);
   expect(nodes).toContain(target);
   expect(nodes.length).toBeGreaterThan(2);
-  expect(nodes.length).toBeLessThan(52);
+  expect(nodes).not.toContain('/notes/git-workflow'); // Unrelated notes stay outside this local graph.
   expect(await view.locator('.graph-node').evaluateAll(links => links.every(link => (link as SVGElement & { pathname: string }).pathname === new URL(link.getAttribute('href')!, location.href).pathname))).toBe(true);
   await expect(view.locator('.graph-node[aria-current="page"]')).toHaveCount(1);
   const link = view.locator('[data-page-id="' + target + '"]');

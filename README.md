@@ -17,6 +17,7 @@ pnpm dev
 
 ```sh
 pnpm test
+pnpm test:examples
 pnpm build
 pnpm check:links
 pnpm test:e2e
@@ -30,8 +31,10 @@ Playwright 测试默认访问 `http://127.0.0.1:4318/from-c-to-mcu/`，先运行
 
 - `docs/lessons/`：33 节主线正文。
 - `docs/chapters/`：章节目录。
-- `docs/optional/`、`docs/notes/`：可跳过的原理与已有拓展。
-- `docs/topics/`：未完成主题的明确状态，不把占位笔记当成完整课程。
+- `docs/optional/`：工具与构建选读，不是零基础入门的前置。
+- `docs/notes/`：102 篇分支与工程实践；补齐原目录 95 个主题，并加入 Git、Markdown 两篇。
+- `docs/topics/`：按 C 语言、构建、平台、GPIO、定时器、采样、通信、调试等类别组织的完整索引，保留原主题锚点。
+- `examples/notes/`：与新正文对应的 14 组独立主机示例；运行方式和验证边界见该目录 README。
 - `docs/.vitepress/theme/components/`：构建、位操作、PWM、中断及 MCU 原理的交互演示。
 
 右侧本页导航下方提供当前文件的局部关系图，只显示直接引用与反向链接；展开后仍是同一组关联，不切换全局图。关系从公开正文自动生成，沿用正文双链接解析；不读取本地归档。节点可跳转，图可拖拽、缩放，窄屏使用紧凑入口。
@@ -44,7 +47,9 @@ Playwright 测试默认访问 `http://127.0.0.1:4318/from-c-to-mcu/`，先运行
 
 `docs/` 是课程正文的唯一维护位置。直接修改主线、原理文章与组件，再运行检查、构建和发布；不再维护 Obsidian 副本，也不进行双向同步。
 
-新增主题需要同步维护 `docs/.vitepress/routes.json` 中的双链接目标、`course.json` 中的导航摘要，以及 `docs/topics/index.md` 中的状态。文章里的 Vue 组件可以直接使用，无需重新从外部笔记导入。
+新增主题需要同步维护 `docs/.vitepress/routes.json` 中的双链接目标、`course.json` 中的导航摘要，以及 `docs/topics/index.md` 中的分类索引。`topic-manifest.json` 固定记录本次 95 个原待写主题与 2 篇工程实践的完成范围，保留历史锚点以便回归核对；它不是自动判定教学质量的标签。文章里的 Vue 组件可以直接使用，无需重新从外部笔记导入。
+
+`pnpm test` 逐篇检查正文身份、必要结构、折叠答案和内链接入；`pnpm test:examples` 需要主机 C/C++ 编译器、CMake 3.20+ 与 Ninja，逐组 Debug 构建并运行 CTest，报告保存在忽略的 `artifacts/note-examples/`。生产浏览器回归遍历全部新文章，在桌面、手机和 320px 窄屏检查阅读、答案展开和当前文件关系图。技术依据与示例结果仍需人工交叉审查；结构通过不等于真机验证。
 
 本机迁移归档位于 `authoring/obsidian-course/`，完整保留旧原稿、待写分支、第三方参考字幕与内部写作资料。`authoring/` 已被 Git 忽略，不参与公开网站，也不上传公共仓库；不要用归档覆盖更新后的 `docs/`。克隆公共仓库后构建网站不依赖这份本地归档。
 

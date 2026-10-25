@@ -1,0 +1,879 @@
+{
+  "version": 1,
+  "scope": "95 formerly pending topics and 2 requested engineering practices",
+  "topics": [
+    {
+      "key": "【原理】变量与内存",
+      "title": "变量与内存",
+      "group": "c-storage",
+      "path": "docs/notes/variables-memory.md",
+      "link": "/notes/variables-memory",
+      "anchor": "topic-fd4e5e1d61",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】数组退化与指针算术",
+      "title": "数组退化与指针算术",
+      "group": "c-storage",
+      "path": "docs/notes/array-pointer-arithmetic.md",
+      "link": "/notes/array-pointer-arithmetic",
+      "anchor": "topic-8283207c9a",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】结构体对齐与填充",
+      "title": "结构体对齐与填充",
+      "group": "c-storage",
+      "path": "docs/notes/struct-alignment.md",
+      "link": "/notes/struct-alignment",
+      "anchor": "topic-90a89924dd",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】缓冲区溢出与边界检查",
+      "title": "缓冲区溢出与边界检查",
+      "group": "c-storage",
+      "path": "docs/notes/buffer-bounds.md",
+      "link": "/notes/buffer-bounds",
+      "anchor": "topic-1980ba1093",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】野指针与悬空指针",
+      "title": "野指针与悬空指针",
+      "group": "c-storage",
+      "path": "docs/notes/pointer-lifetime.md",
+      "link": "/notes/pointer-lifetime",
+      "anchor": "topic-9229a999ab",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】packed位域与union",
+      "title": "packed位域与union",
+      "group": "c-storage",
+      "path": "docs/notes/packed-bitfields-unions.md",
+      "link": "/notes/packed-bitfields-unions",
+      "anchor": "topic-b7683f6b52",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】字节序之争",
+      "title": "字节序之争",
+      "group": "c-storage",
+      "path": "docs/notes/byte-order.md",
+      "link": "/notes/byte-order",
+      "anchor": "topic-3206379458",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】补码与整型转换",
+      "title": "补码与整型转换",
+      "group": "c-numbers",
+      "path": "docs/notes/integer-conversions.md",
+      "link": "/notes/integer-conversions",
+      "anchor": "topic-d6e42da962",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】C为什么不检查溢出",
+      "title": "C为什么不检查溢出",
+      "group": "c-numbers",
+      "path": "docs/notes/integer-overflow.md",
+      "link": "/notes/integer-overflow",
+      "anchor": "topic-00fa1830e6",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】浮点与定点",
+      "title": "浮点与定点",
+      "group": "c-numbers",
+      "path": "docs/notes/float-fixed-point.md",
+      "link": "/notes/float-fixed-point",
+      "anchor": "topic-1808db85e6",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】补码为什么成了标准",
+      "title": "补码为什么成了标准",
+      "group": "c-numbers",
+      "path": "docs/notes/twos-complement.md",
+      "link": "/notes/twos-complement",
+      "anchor": "topic-c0918976ce",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】饱和运算",
+      "title": "饱和运算",
+      "group": "c-numbers",
+      "path": "docs/notes/saturating-arithmetic.md",
+      "link": "/notes/saturating-arithmetic",
+      "anchor": "topic-6160c94390",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】随机数与熵",
+      "title": "随机数与熵",
+      "group": "c-numbers",
+      "path": "docs/notes/randomness-entropy.md",
+      "link": "/notes/randomness-entropy",
+      "anchor": "topic-55688240ed",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】函数指针与间接调用",
+      "title": "函数指针与间接调用",
+      "group": "c-functions",
+      "path": "docs/notes/function-pointer-calls.md",
+      "link": "/notes/function-pointer-calls",
+      "anchor": "topic-047843ecf5",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】栈与函数调用",
+      "title": "栈与函数调用",
+      "group": "c-functions",
+      "path": "docs/notes/stack-function-calls.md",
+      "link": "/notes/stack-function-calls",
+      "anchor": "topic-044ac95db9",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】C语言里的面向对象",
+      "title": "C语言里的面向对象",
+      "group": "c-functions",
+      "path": "docs/notes/objects-in-c.md",
+      "link": "/notes/objects-in-c",
+      "anchor": "topic-87cb01baee",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】函数指针与虚表",
+      "title": "函数指针与虚表",
+      "group": "c-functions",
+      "path": "docs/notes/function-tables.md",
+      "link": "/notes/function-tables",
+      "anchor": "topic-c26b3ee1aa",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】设计模式是什么",
+      "title": "设计模式是什么",
+      "group": "c-functions",
+      "path": "docs/notes/design-patterns.md",
+      "link": "/notes/design-patterns",
+      "anchor": "topic-23597877a4",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】C++入门与嵌入式C++",
+      "title": "C++入门与嵌入式C++",
+      "group": "c-functions",
+      "path": "docs/notes/embedded-cpp.md",
+      "link": "/notes/embedded-cpp",
+      "anchor": "topic-2b6b2a6a0c",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】调用约定与尾调用优化",
+      "title": "调用约定与尾调用优化",
+      "group": "c-functions",
+      "path": "docs/notes/calling-conventions.md",
+      "link": "/notes/calling-conventions",
+      "anchor": "topic-9f298902d6",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】volatile与编译器优化",
+      "title": "volatile与编译器优化",
+      "group": "c-semantics",
+      "path": "docs/notes/volatile-optimization.md",
+      "link": "/notes/volatile-optimization",
+      "anchor": "topic-3ac2c59cbb",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】const与restrict",
+      "title": "const与restrict",
+      "group": "c-semantics",
+      "path": "docs/notes/const-restrict.md",
+      "link": "/notes/const-restrict",
+      "anchor": "topic-b31e331ea1",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】严格别名与未定义行为",
+      "title": "严格别名与未定义行为",
+      "group": "c-semantics",
+      "path": "docs/notes/strict-aliasing.md",
+      "link": "/notes/strict-aliasing",
+      "anchor": "topic-c8dcede207",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】参数求值顺序与未定义行为",
+      "title": "参数求值顺序与未定义行为",
+      "group": "c-semantics",
+      "path": "docs/notes/evaluation-order.md",
+      "link": "/notes/evaluation-order",
+      "anchor": "topic-57cada87f4",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】动态内存与碎片",
+      "title": "动态内存与碎片",
+      "group": "c-semantics",
+      "path": "docs/notes/dynamic-memory.md",
+      "link": "/notes/dynamic-memory",
+      "anchor": "topic-0b785ef4e2",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】strtok为什么不可重入",
+      "title": "strtok为什么不可重入",
+      "group": "c-semantics",
+      "path": "docs/notes/strtok-reentrancy.md",
+      "link": "/notes/strtok-reentrancy",
+      "anchor": "topic-656bb04fc8",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】宏的高级用法",
+      "title": "宏的高级用法",
+      "group": "c-semantics",
+      "path": "docs/notes/advanced-macros.md",
+      "link": "/notes/advanced-macros",
+      "anchor": "topic-69f7cfbd35",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】CMake如何工作",
+      "title": "CMake如何工作",
+      "group": "build",
+      "path": "docs/notes/cmake-how-it-works.md",
+      "link": "/notes/cmake-how-it-works",
+      "anchor": "topic-9861de3d70",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】预处理器与链接",
+      "title": "预处理器与链接",
+      "group": "build",
+      "path": "docs/notes/preprocessor-linkage.md",
+      "link": "/notes/preprocessor-linkage",
+      "anchor": "topic-e40f309844",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】可执行文件格式",
+      "title": "可执行文件格式",
+      "group": "build",
+      "path": "docs/notes/executable-formats.md",
+      "link": "/notes/executable-formats",
+      "anchor": "topic-13b2a37518",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】启动流程与链接脚本",
+      "title": "启动流程与链接脚本",
+      "group": "build",
+      "path": "docs/notes/startup-linker-script.md",
+      "link": "/notes/startup-linker-script",
+      "anchor": "topic-9f4e84f763",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】弱符号如何让回调生效",
+      "title": "弱符号如何让回调生效",
+      "group": "build",
+      "path": "docs/notes/weak-symbols.md",
+      "link": "/notes/weak-symbols",
+      "anchor": "topic-05899f1fa5",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】CMake与增量编译",
+      "title": "CMake与增量编译",
+      "group": "build",
+      "path": "docs/notes/incremental-builds.md",
+      "link": "/notes/incremental-builds",
+      "anchor": "topic-e6f9e6ecda",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】在Windows上安装现代gcc",
+      "title": "在Windows上安装现代gcc",
+      "group": "build",
+      "path": "docs/notes/windows-gcc.md",
+      "link": "/notes/windows-gcc",
+      "anchor": "topic-58c3a88045",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】读改写与原子性",
+      "title": "读改写与原子性",
+      "group": "core",
+      "path": "docs/notes/read-modify-write.md",
+      "link": "/notes/read-modify-write",
+      "anchor": "topic-c6aafc617b",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】中断与NVIC",
+      "title": "中断与NVIC",
+      "group": "core",
+      "path": "docs/notes/interrupts-nvic.md",
+      "link": "/notes/interrupts-nvic",
+      "anchor": "topic-41411edc75",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】中断向量表的由来",
+      "title": "中断向量表的由来",
+      "group": "core",
+      "path": "docs/notes/vector-table.md",
+      "link": "/notes/vector-table",
+      "anchor": "topic-883e343bf4",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】中断风暴与忘清标志",
+      "title": "中断风暴与忘清标志",
+      "group": "core",
+      "path": "docs/notes/interrupt-storms.md",
+      "link": "/notes/interrupt-storms",
+      "anchor": "topic-d957cbcc46",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】LDREX与STREX原子指令",
+      "title": "LDREX与STREX原子指令",
+      "group": "core",
+      "path": "docs/notes/exclusive-access.md",
+      "link": "/notes/exclusive-access",
+      "anchor": "topic-e8cd0fb02e",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】内存屏障与指令重排",
+      "title": "内存屏障与指令重排",
+      "group": "core",
+      "path": "docs/notes/memory-barriers.md",
+      "link": "/notes/memory-barriers",
+      "anchor": "topic-391285efe2",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】序号锁与双缓冲",
+      "title": "序号锁与双缓冲",
+      "group": "core",
+      "path": "docs/notes/sequence-double-buffer.md",
+      "link": "/notes/sequence-double-buffer",
+      "anchor": "topic-6f60bb27f1",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】从协作式到抢占式调度",
+      "title": "从协作式到抢占式调度",
+      "group": "core",
+      "path": "docs/notes/cooperative-preemptive.md",
+      "link": "/notes/cooperative-preemptive",
+      "anchor": "topic-b4c25cc00a",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】CMSIS如何用结构体描述外设",
+      "title": "CMSIS如何用结构体描述外设",
+      "group": "platform",
+      "path": "docs/notes/cmsis-peripheral-structs.md",
+      "link": "/notes/cmsis-peripheral-structs",
+      "anchor": "topic-4130e9bab0",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】Cortex-M系列差异",
+      "title": "Cortex-M系列差异",
+      "group": "platform",
+      "path": "docs/notes/cortex-m-families.md",
+      "link": "/notes/cortex-m-families",
+      "anchor": "topic-b1a475d36a",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】MCU MPU与SoC的区别",
+      "title": "MCU MPU与SoC的区别",
+      "group": "platform",
+      "path": "docs/notes/mcu-mpu-soc.md",
+      "link": "/notes/mcu-mpu-soc",
+      "anchor": "topic-1c5a160b70",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】STM32Cube工具生态",
+      "title": "STM32Cube工具生态",
+      "group": "platform",
+      "path": "docs/notes/stm32cube-tools.md",
+      "link": "/notes/stm32cube-tools",
+      "anchor": "topic-6115f4998a",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】STM32型号命名与勘误表",
+      "title": "STM32型号命名与勘误表",
+      "group": "platform",
+      "path": "docs/notes/stm32-part-errata.md",
+      "link": "/notes/stm32-part-errata",
+      "anchor": "topic-8b20d4d7d1",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】汇编如何读写寄存器",
+      "title": "汇编如何读写寄存器",
+      "group": "platform",
+      "path": "docs/notes/assembly-register-access.md",
+      "link": "/notes/assembly-register-access",
+      "anchor": "topic-845b7233ad",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】看反汇编",
+      "title": "看反汇编",
+      "group": "platform",
+      "path": "docs/notes/reading-disassembly.md",
+      "link": "/notes/reading-disassembly",
+      "anchor": "topic-533ccbd35b",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】GPIO内部电路",
+      "title": "GPIO内部电路",
+      "group": "gpio",
+      "path": "docs/notes/gpio-circuits.md",
+      "link": "/notes/gpio-circuits",
+      "anchor": "topic-364815701a",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】引脚复用机制",
+      "title": "引脚复用机制",
+      "group": "gpio",
+      "path": "docs/notes/alternate-functions.md",
+      "link": "/notes/alternate-functions",
+      "anchor": "topic-251e35b8fb",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】按键抖动与消抖",
+      "title": "按键抖动与消抖",
+      "group": "gpio",
+      "path": "docs/notes/button-debounce.md",
+      "link": "/notes/button-debounce",
+      "anchor": "topic-0283ec4a59",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】5V容忍引脚与电平转换",
+      "title": "5V容忍引脚与电平转换",
+      "group": "gpio",
+      "path": "docs/notes/voltage-tolerance.md",
+      "link": "/notes/voltage-tolerance",
+      "anchor": "topic-8c1b375621",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】GPIO电气参数与保护",
+      "title": "GPIO电气参数与保护",
+      "group": "gpio",
+      "path": "docs/notes/gpio-electrical.md",
+      "link": "/notes/gpio-electrical",
+      "anchor": "topic-8ae96519e7",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】有源蜂鸣器与无源蜂鸣器",
+      "title": "有源蜂鸣器与无源蜂鸣器",
+      "group": "gpio",
+      "path": "docs/notes/buzzers.md",
+      "link": "/notes/buzzers",
+      "anchor": "topic-6d80fe0201",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】示波器与逻辑分析仪怎么用",
+      "title": "示波器与逻辑分析仪怎么用",
+      "group": "gpio",
+      "path": "docs/notes/scope-logic-analyzer.md",
+      "link": "/notes/scope-logic-analyzer",
+      "anchor": "topic-5a4ffad028",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】PWM与预装载",
+      "title": "PWM与预装载",
+      "group": "timers",
+      "path": "docs/notes/pwm-preload.md",
+      "link": "/notes/pwm-preload",
+      "anchor": "topic-f886218325",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】SysTick与HAL时基",
+      "title": "SysTick与HAL时基",
+      "group": "timers",
+      "path": "docs/notes/systick-hal-timebase.md",
+      "link": "/notes/systick-hal-timebase",
+      "anchor": "topic-5cf3f0b207",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】定时器工作原理",
+      "title": "定时器工作原理",
+      "group": "timers",
+      "path": "docs/notes/timer-principles.md",
+      "link": "/notes/timer-principles",
+      "anchor": "topic-27ed29f86a",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】时钟树",
+      "title": "时钟树",
+      "group": "timers",
+      "path": "docs/notes/clock-tree.md",
+      "link": "/notes/clock-tree",
+      "anchor": "topic-54f0a74960",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】RTC与32.768kHz长期计时",
+      "title": "RTC与32.768kHz长期计时",
+      "group": "timers",
+      "path": "docs/notes/rtc-timekeeping.md",
+      "link": "/notes/rtc-timekeeping",
+      "anchor": "topic-b5e8e80d53",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】晶振精度与时钟抖动",
+      "title": "晶振精度与时钟抖动",
+      "group": "timers",
+      "path": "docs/notes/clock-accuracy-jitter.md",
+      "link": "/notes/clock-accuracy-jitter",
+      "anchor": "topic-351e4f47d7",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】测频法与测周法",
+      "title": "测频法与测周法",
+      "group": "timers",
+      "path": "docs/notes/frequency-period-measurement.md",
+      "link": "/notes/frequency-period-measurement",
+      "anchor": "topic-a5b92c7bf4",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】编码器模式与死区",
+      "title": "编码器模式与死区",
+      "group": "timers",
+      "path": "docs/notes/encoder-deadtime.md",
+      "link": "/notes/encoder-deadtime",
+      "anchor": "topic-6950aa3e75",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】软件定时器与简易调度器",
+      "title": "软件定时器与简易调度器",
+      "group": "timers",
+      "path": "docs/notes/software-timers.md",
+      "link": "/notes/software-timers",
+      "anchor": "topic-4bebe7f78e",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】ADC工作原理与采样保持",
+      "title": "ADC工作原理与采样保持",
+      "group": "analog",
+      "path": "docs/notes/adc-sample-hold.md",
+      "link": "/notes/adc-sample-hold",
+      "anchor": "topic-d44142b319",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】DMA工作原理",
+      "title": "DMA工作原理",
+      "group": "analog",
+      "path": "docs/notes/dma-principles.md",
+      "link": "/notes/dma-principles",
+      "anchor": "topic-42f46c1bb1",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】DMA半传输与流式处理",
+      "title": "DMA半传输与流式处理",
+      "group": "analog",
+      "path": "docs/notes/dma-streaming.md",
+      "link": "/notes/dma-streaming",
+      "anchor": "topic-b671ac7708",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】定时器触发ADC采样",
+      "title": "定时器触发ADC采样",
+      "group": "analog",
+      "path": "docs/notes/timer-triggered-adc.md",
+      "link": "/notes/timer-triggered-adc",
+      "anchor": "topic-b520d73a1e",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】用内部参考电压校准ADC",
+      "title": "用内部参考电压校准ADC",
+      "group": "analog",
+      "path": "docs/notes/adc-internal-reference.md",
+      "link": "/notes/adc-internal-reference",
+      "anchor": "topic-31e7df08f6",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】printf为什么慢又贵",
+      "title": "printf为什么慢又贵",
+      "group": "serial",
+      "path": "docs/notes/printf-cost.md",
+      "link": "/notes/printf-cost",
+      "anchor": "topic-e5ea18a823",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】UART帧格式与波特率",
+      "title": "UART帧格式与波特率",
+      "group": "serial",
+      "path": "docs/notes/uart-framing.md",
+      "link": "/notes/uart-framing",
+      "anchor": "topic-bd589f9b90",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】环形缓冲区",
+      "title": "环形缓冲区",
+      "group": "serial",
+      "path": "docs/notes/ring-buffer.md",
+      "link": "/notes/ring-buffer",
+      "anchor": "topic-58cae8dcd3",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】CRC校验",
+      "title": "CRC校验",
+      "group": "serial",
+      "path": "docs/notes/crc-principles.md",
+      "link": "/notes/crc-principles",
+      "anchor": "topic-43c4f5d395",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】CRC32与查表实现",
+      "title": "CRC32与查表实现",
+      "group": "serial",
+      "path": "docs/notes/crc32-table.md",
+      "link": "/notes/crc32-table",
+      "anchor": "topic-b81efe4e7a",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】HAL回调的注册方式",
+      "title": "HAL回调的注册方式",
+      "group": "serial",
+      "path": "docs/notes/hal-callbacks.md",
+      "link": "/notes/hal-callbacks",
+      "anchor": "topic-09dfe9a1f4",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】串口流控与USB CDC",
+      "title": "串口流控与USB CDC",
+      "group": "serial",
+      "path": "docs/notes/flow-control-usb-cdc.md",
+      "link": "/notes/flow-control-usb-cdc",
+      "anchor": "topic-c3cde9e953",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】文本协议与二进制协议",
+      "title": "文本协议与二进制协议",
+      "group": "serial",
+      "path": "docs/notes/text-binary-protocols.md",
+      "link": "/notes/text-binary-protocols",
+      "anchor": "topic-3b0197c059",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】状态机设计",
+      "title": "状态机设计",
+      "group": "serial",
+      "path": "docs/notes/state-machines.md",
+      "link": "/notes/state-machines",
+      "anchor": "topic-3289bd0b6d",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】CAN位定时与采样点",
+      "title": "CAN位定时与采样点",
+      "group": "can",
+      "path": "docs/notes/can-bit-timing.md",
+      "link": "/notes/can-bit-timing",
+      "anchor": "topic-b68aac71f7",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】CAN总线电气与仲裁",
+      "title": "CAN总线电气与仲裁",
+      "group": "can",
+      "path": "docs/notes/can-electrical-arbitration.md",
+      "link": "/notes/can-electrical-arbitration",
+      "anchor": "topic-eedae309b7",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】CAN错误状态机",
+      "title": "CAN错误状态机",
+      "group": "can",
+      "path": "docs/notes/can-error-states.md",
+      "link": "/notes/can-error-states",
+      "anchor": "topic-361a827ec8",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】bxCAN过滤器组详解",
+      "title": "bxCAN过滤器组详解",
+      "group": "can",
+      "path": "docs/notes/bxcan-filters.md",
+      "link": "/notes/bxcan-filters",
+      "anchor": "topic-23c58ad819",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】CAN FD与CANopen简介",
+      "title": "CAN FD与CANopen简介",
+      "group": "can",
+      "path": "docs/notes/can-fd-canopen.md",
+      "link": "/notes/can-fd-canopen",
+      "anchor": "topic-626c58cc2e",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】CAN总线拓扑与长度",
+      "title": "CAN总线拓扑与长度",
+      "group": "can",
+      "path": "docs/notes/can-topology.md",
+      "link": "/notes/can-topology",
+      "anchor": "topic-fdcc037cc5",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】CAN扩展帧与远程帧",
+      "title": "CAN扩展帧与远程帧",
+      "group": "can",
+      "path": "docs/notes/can-extended-remote.md",
+      "link": "/notes/can-extended-remote",
+      "anchor": "topic-7482b35af2",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】总线负载与优先级设计",
+      "title": "总线负载与优先级设计",
+      "group": "can",
+      "path": "docs/notes/can-load-priority.md",
+      "link": "/notes/can-load-priority",
+      "anchor": "topic-4995242c18",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】HardFault现场分析",
+      "title": "HardFault现场分析",
+      "group": "debug",
+      "path": "docs/notes/hardfault-analysis.md",
+      "link": "/notes/hardfault-analysis",
+      "anchor": "topic-eade08a93a",
+      "wasPending": true
+    },
+    {
+      "key": "【原理】SWD调试原理",
+      "title": "SWD调试原理",
+      "group": "debug",
+      "path": "docs/notes/swd-debugging.md",
+      "link": "/notes/swd-debugging",
+      "anchor": "topic-b17fbd069b",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】HardFault现场dump与复位后回放",
+      "title": "HardFault现场dump与复位后回放",
+      "group": "debug",
+      "path": "docs/notes/fault-persistence.md",
+      "link": "/notes/fault-persistence",
+      "anchor": "topic-ab9004b540",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】SEGGER_RTT与SWO替代串口日志",
+      "title": "SEGGER_RTT与SWO替代串口日志",
+      "group": "debug",
+      "path": "docs/notes/rtt-swo.md",
+      "link": "/notes/rtt-swo",
+      "anchor": "topic-788d1abfc0",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】SWD口的安全与断点数量限制",
+      "title": "SWD口的安全与断点数量限制",
+      "group": "debug",
+      "path": "docs/notes/swd-security-breakpoints.md",
+      "link": "/notes/swd-security-breakpoints",
+      "anchor": "topic-a67f307230",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】SWD引脚被占用后的救援",
+      "title": "SWD引脚被占用后的救援",
+      "group": "debug",
+      "path": "docs/notes/swd-recovery.md",
+      "link": "/notes/swd-recovery",
+      "anchor": "topic-81a1612b77",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】为什么能跑和能调试是两件事",
+      "title": "为什么能跑和能调试是两件事",
+      "group": "debug",
+      "path": "docs/notes/run-vs-debug.md",
+      "link": "/notes/run-vs-debug",
+      "anchor": "topic-79e51de039",
+      "wasPending": true
+    },
+    {
+      "key": "【拓展】量产固件的日志策略与日志泄露",
+      "title": "量产固件的日志策略与日志泄露",
+      "group": "debug",
+      "path": "docs/notes/production-logging.md",
+      "link": "/notes/production-logging",
+      "anchor": "topic-762d8175bd",
+      "wasPending": true
+    },
+    {
+      "key": "【实践】用Git保存每一次可用的进展",
+      "title": "用Git保存每一次可用的进展",
+      "group": "workflow",
+      "path": "docs/notes/git-workflow.md",
+      "link": "/notes/git-workflow",
+      "anchor": null,
+      "wasPending": false
+    },
+    {
+      "key": "【实践】用Markdown写清楚工程",
+      "title": "用Markdown写清楚工程",
+      "group": "workflow",
+      "path": "docs/notes/markdown-notes.md",
+      "link": "/notes/markdown-notes",
+      "anchor": null,
+      "wasPending": false
+    }
+  ]
+}

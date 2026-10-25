@@ -187,72 +187,72 @@
     "pending": false
   },
   "【原理】ADC工作原理与采样保持": {
-    "link": "/topics/#topic-d44142b319",
-    "pending": true
+    "link": "/notes/adc-sample-hold",
+    "pending": false
   },
   "【原理】CAN位定时与采样点": {
-    "link": "/topics/#topic-b68aac71f7",
-    "pending": true
+    "link": "/notes/can-bit-timing",
+    "pending": false
   },
   "【原理】CAN总线电气与仲裁": {
-    "link": "/topics/#topic-eedae309b7",
-    "pending": true
+    "link": "/notes/can-electrical-arbitration",
+    "pending": false
   },
   "【原理】CAN错误状态机": {
-    "link": "/topics/#topic-361a827ec8",
-    "pending": true
+    "link": "/notes/can-error-states",
+    "pending": false
   },
   "【原理】CMake如何工作": {
-    "link": "/topics/#topic-9861de3d70",
-    "pending": true
+    "link": "/notes/cmake-how-it-works",
+    "pending": false
   },
   "【原理】CRC校验": {
-    "link": "/topics/#topic-43c4f5d395",
-    "pending": true
+    "link": "/notes/crc-principles",
+    "pending": false
   },
   "【原理】C语言里的面向对象": {
-    "link": "/topics/#topic-87cb01baee",
-    "pending": true
+    "link": "/notes/objects-in-c",
+    "pending": false
   },
   "【原理】DMA工作原理": {
-    "link": "/topics/#topic-42f46c1bb1",
-    "pending": true
+    "link": "/notes/dma-principles",
+    "pending": false
   },
   "【原理】GPIO内部电路": {
-    "link": "/topics/#topic-364815701a",
-    "pending": true
+    "link": "/notes/gpio-circuits",
+    "pending": false
   },
   "【原理】HardFault现场分析": {
-    "link": "/topics/#topic-eade08a93a",
-    "pending": true
+    "link": "/notes/hardfault-analysis",
+    "pending": false
   },
   "【原理】printf为什么慢又贵": {
-    "link": "/topics/#topic-e5ea18a823",
-    "pending": true
+    "link": "/notes/printf-cost",
+    "pending": false
   },
   "【原理】PWM与预装载": {
-    "link": "/topics/#topic-f886218325",
-    "pending": true
+    "link": "/notes/pwm-preload",
+    "pending": false
   },
   "【原理】SWD调试原理": {
-    "link": "/topics/#topic-b17fbd069b",
-    "pending": true
+    "link": "/notes/swd-debugging",
+    "pending": false
   },
   "【原理】SysTick与HAL时基": {
-    "link": "/topics/#topic-5cf3f0b207",
-    "pending": true
+    "link": "/notes/systick-hal-timebase",
+    "pending": false
   },
   "【原理】UART帧格式与波特率": {
-    "link": "/topics/#topic-bd589f9b90",
-    "pending": true
+    "link": "/notes/uart-framing",
+    "pending": false
   },
   "【原理】volatile与编译器优化": {
-    "link": "/topics/#topic-3ac2c59cbb",
-    "pending": true
+    "link": "/notes/volatile-optimization",
+    "pending": false
   },
   "【原理】中断与NVIC": {
-    "link": "/topics/#topic-41411edc75",
-    "pending": true
+    "link": "/notes/interrupts-nvic",
+    "pending": false
   },
   "【原理】交叉编译与工具链": {
     "link": "/notes/cross-compilation",
@@ -263,331 +263,339 @@
     "pending": false
   },
   "【原理】函数指针与间接调用": {
-    "link": "/topics/#topic-047843ecf5",
-    "pending": true
+    "link": "/notes/function-pointer-calls",
+    "pending": false
   },
   "【原理】单片机内部结构": {
     "link": "/notes/mcu-architecture",
     "pending": false
   },
   "【原理】变量与内存": {
-    "link": "/topics/#topic-fd4e5e1d61",
-    "pending": true
+    "link": "/notes/variables-memory",
+    "pending": false
   },
   "【原理】可执行文件格式": {
-    "link": "/topics/#topic-13b2a37518",
-    "pending": true
+    "link": "/notes/executable-formats",
+    "pending": false
   },
   "【原理】启动流程与链接脚本": {
-    "link": "/topics/#topic-9f4e84f763",
-    "pending": true
+    "link": "/notes/startup-linker-script",
+    "pending": false
   },
   "【原理】定时器工作原理": {
-    "link": "/topics/#topic-27ed29f86a",
-    "pending": true
+    "link": "/notes/timer-principles",
+    "pending": false
   },
   "【原理】寄存器与内存映射": {
     "link": "/notes/memory-mapped-io",
     "pending": false
   },
   "【原理】引脚复用机制": {
-    "link": "/topics/#topic-251e35b8fb",
-    "pending": true
+    "link": "/notes/alternate-functions",
+    "pending": false
   },
   "【原理】弱符号如何让回调生效": {
-    "link": "/topics/#topic-05899f1fa5",
-    "pending": true
+    "link": "/notes/weak-symbols",
+    "pending": false
   },
   "【原理】按键抖动与消抖": {
-    "link": "/topics/#topic-0283ec4a59",
-    "pending": true
+    "link": "/notes/button-debounce",
+    "pending": false
   },
   "【原理】数组退化与指针算术": {
-    "link": "/topics/#topic-8283207c9a",
-    "pending": true
+    "link": "/notes/array-pointer-arithmetic",
+    "pending": false
   },
   "【原理】时钟树": {
-    "link": "/topics/#topic-54f0a74960",
-    "pending": true
+    "link": "/notes/clock-tree",
+    "pending": false
   },
   "【原理】栈与函数调用": {
-    "link": "/topics/#topic-044ac95db9",
-    "pending": true
+    "link": "/notes/stack-function-calls",
+    "pending": false
   },
   "【原理】汇编如何读写寄存器": {
-    "link": "/topics/#topic-845b7233ad",
-    "pending": true
+    "link": "/notes/assembly-register-access",
+    "pending": false
   },
   "【原理】环形缓冲区": {
-    "link": "/topics/#topic-58cae8dcd3",
-    "pending": true
+    "link": "/notes/ring-buffer",
+    "pending": false
   },
   "【原理】结构体对齐与填充": {
-    "link": "/topics/#topic-90a89924dd",
-    "pending": true
+    "link": "/notes/struct-alignment",
+    "pending": false
   },
   "【原理】缓冲区溢出与边界检查": {
-    "link": "/topics/#topic-1980ba1093",
-    "pending": true
+    "link": "/notes/buffer-bounds",
+    "pending": false
   },
   "【原理】补码与整型转换": {
-    "link": "/topics/#topic-d6e42da962",
-    "pending": true
+    "link": "/notes/integer-conversions",
+    "pending": false
   },
   "【原理】读改写与原子性": {
-    "link": "/topics/#topic-c6aafc617b",
-    "pending": true
+    "link": "/notes/read-modify-write",
+    "pending": false
   },
   "【原理】预处理器与链接": {
-    "link": "/topics/#topic-e40f309844",
-    "pending": true
+    "link": "/notes/preprocessor-linkage",
+    "pending": false
   },
   "【拓展】5V容忍引脚与电平转换": {
-    "link": "/topics/#topic-8c1b375621",
-    "pending": true
+    "link": "/notes/voltage-tolerance",
+    "pending": false
   },
   "【拓展】bxCAN过滤器组详解": {
-    "link": "/topics/#topic-23c58ad819",
-    "pending": true
+    "link": "/notes/bxcan-filters",
+    "pending": false
   },
   "【拓展】C++入门与嵌入式C++": {
-    "link": "/topics/#topic-2b6b2a6a0c",
-    "pending": true
+    "link": "/notes/embedded-cpp",
+    "pending": false
   },
   "【拓展】CAN FD与CANopen简介": {
-    "link": "/topics/#topic-626c58cc2e",
-    "pending": true
+    "link": "/notes/can-fd-canopen",
+    "pending": false
   },
   "【拓展】CAN总线拓扑与长度": {
-    "link": "/topics/#topic-fdcc037cc5",
-    "pending": true
+    "link": "/notes/can-topology",
+    "pending": false
   },
   "【拓展】CAN扩展帧与远程帧": {
-    "link": "/topics/#topic-7482b35af2",
-    "pending": true
+    "link": "/notes/can-extended-remote",
+    "pending": false
   },
   "【拓展】CMake与增量编译": {
-    "link": "/topics/#topic-e6f9e6ecda",
-    "pending": true
+    "link": "/notes/incremental-builds",
+    "pending": false
   },
   "【拓展】CMSIS如何用结构体描述外设": {
-    "link": "/topics/#topic-4130e9bab0",
-    "pending": true
+    "link": "/notes/cmsis-peripheral-structs",
+    "pending": false
   },
   "【拓展】const与restrict": {
-    "link": "/topics/#topic-b31e331ea1",
-    "pending": true
+    "link": "/notes/const-restrict",
+    "pending": false
   },
   "【拓展】Cortex-M系列差异": {
-    "link": "/topics/#topic-b1a475d36a",
-    "pending": true
+    "link": "/notes/cortex-m-families",
+    "pending": false
   },
   "【拓展】CRC32与查表实现": {
-    "link": "/topics/#topic-b81efe4e7a",
-    "pending": true
+    "link": "/notes/crc32-table",
+    "pending": false
   },
   "【拓展】C为什么不检查溢出": {
-    "link": "/topics/#topic-00fa1830e6",
-    "pending": true
+    "link": "/notes/integer-overflow",
+    "pending": false
   },
   "【拓展】DMA半传输与流式处理": {
-    "link": "/topics/#topic-b671ac7708",
-    "pending": true
+    "link": "/notes/dma-streaming",
+    "pending": false
   },
   "【拓展】GPIO电气参数与保护": {
-    "link": "/topics/#topic-8ae96519e7",
-    "pending": true
+    "link": "/notes/gpio-electrical",
+    "pending": false
   },
   "【拓展】HAL回调的注册方式": {
-    "link": "/topics/#topic-09dfe9a1f4",
-    "pending": true
+    "link": "/notes/hal-callbacks",
+    "pending": false
   },
   "【拓展】HardFault现场dump与复位后回放": {
-    "link": "/topics/#topic-ab9004b540",
-    "pending": true
+    "link": "/notes/fault-persistence",
+    "pending": false
   },
   "【拓展】LDREX与STREX原子指令": {
-    "link": "/topics/#topic-e8cd0fb02e",
-    "pending": true
+    "link": "/notes/exclusive-access",
+    "pending": false
   },
   "【拓展】MCU MPU与SoC的区别": {
-    "link": "/topics/#topic-1c5a160b70",
-    "pending": true
+    "link": "/notes/mcu-mpu-soc",
+    "pending": false
   },
   "【拓展】packed位域与union": {
-    "link": "/topics/#topic-b7683f6b52",
-    "pending": true
+    "link": "/notes/packed-bitfields-unions",
+    "pending": false
   },
   "【拓展】RTC与32.768kHz长期计时": {
-    "link": "/topics/#topic-b5e8e80d53",
-    "pending": true
+    "link": "/notes/rtc-timekeeping",
+    "pending": false
   },
   "【拓展】SEGGER_RTT与SWO替代串口日志": {
-    "link": "/topics/#topic-788d1abfc0",
-    "pending": true
+    "link": "/notes/rtt-swo",
+    "pending": false
   },
   "【拓展】STM32Cube工具生态": {
-    "link": "/topics/#topic-6115f4998a",
-    "pending": true
+    "link": "/notes/stm32cube-tools",
+    "pending": false
   },
   "【拓展】STM32型号命名与勘误表": {
-    "link": "/topics/#topic-8b20d4d7d1",
-    "pending": true
+    "link": "/notes/stm32-part-errata",
+    "pending": false
   },
   "【拓展】strtok为什么不可重入": {
-    "link": "/topics/#topic-656bb04fc8",
-    "pending": true
+    "link": "/notes/strtok-reentrancy",
+    "pending": false
   },
   "【拓展】SWD口的安全与断点数量限制": {
-    "link": "/topics/#topic-a67f307230",
-    "pending": true
+    "link": "/notes/swd-security-breakpoints",
+    "pending": false
   },
   "【拓展】SWD引脚被占用后的救援": {
-    "link": "/topics/#topic-81a1612b77",
-    "pending": true
+    "link": "/notes/swd-recovery",
+    "pending": false
   },
   "【拓展】严格别名与未定义行为": {
-    "link": "/topics/#topic-c8dcede207",
-    "pending": true
+    "link": "/notes/strict-aliasing",
+    "pending": false
   },
   "【拓展】中断向量表的由来": {
-    "link": "/topics/#topic-883e343bf4",
-    "pending": true
+    "link": "/notes/vector-table",
+    "pending": false
   },
   "【拓展】中断风暴与忘清标志": {
-    "link": "/topics/#topic-d957cbcc46",
-    "pending": true
+    "link": "/notes/interrupt-storms",
+    "pending": false
   },
   "【拓展】串口流控与USB CDC": {
-    "link": "/topics/#topic-c3cde9e953",
-    "pending": true
+    "link": "/notes/flow-control-usb-cdc",
+    "pending": false
   },
   "【拓展】为什么能跑和能调试是两件事": {
-    "link": "/topics/#topic-79e51de039",
-    "pending": true
+    "link": "/notes/run-vs-debug",
+    "pending": false
   },
   "【拓展】从协作式到抢占式调度": {
-    "link": "/topics/#topic-b4c25cc00a",
-    "pending": true
+    "link": "/notes/cooperative-preemptive",
+    "pending": false
   },
   "【拓展】内存屏障与指令重排": {
-    "link": "/topics/#topic-391285efe2",
-    "pending": true
+    "link": "/notes/memory-barriers",
+    "pending": false
   },
   "【拓展】函数指针与虚表": {
-    "link": "/topics/#topic-c26b3ee1aa",
-    "pending": true
+    "link": "/notes/function-tables",
+    "pending": false
   },
   "【拓展】动态内存与碎片": {
-    "link": "/topics/#topic-0b785ef4e2",
-    "pending": true
+    "link": "/notes/dynamic-memory",
+    "pending": false
   },
   "【拓展】参数求值顺序与未定义行为": {
-    "link": "/topics/#topic-57cada87f4",
-    "pending": true
+    "link": "/notes/evaluation-order",
+    "pending": false
   },
   "【拓展】在Windows上安装现代gcc": {
-    "link": "/topics/#topic-58c3a88045",
-    "pending": true
+    "link": "/notes/windows-gcc",
+    "pending": false
   },
   "【拓展】字节序之争": {
-    "link": "/topics/#topic-3206379458",
-    "pending": true
+    "link": "/notes/byte-order",
+    "pending": false
   },
   "【拓展】宏的高级用法": {
-    "link": "/topics/#topic-69f7cfbd35",
-    "pending": true
+    "link": "/notes/advanced-macros",
+    "pending": false
   },
   "【拓展】定时器触发ADC采样": {
-    "link": "/topics/#topic-b520d73a1e",
-    "pending": true
+    "link": "/notes/timer-triggered-adc",
+    "pending": false
   },
   "【拓展】序号锁与双缓冲": {
-    "link": "/topics/#topic-6f60bb27f1",
-    "pending": true
+    "link": "/notes/sequence-double-buffer",
+    "pending": false
   },
   "【拓展】总线负载与优先级设计": {
-    "link": "/topics/#topic-4995242c18",
-    "pending": true
+    "link": "/notes/can-load-priority",
+    "pending": false
   },
   "【拓展】文本协议与二进制协议": {
-    "link": "/topics/#topic-3b0197c059",
-    "pending": true
+    "link": "/notes/text-binary-protocols",
+    "pending": false
   },
   "【拓展】晶振精度与时钟抖动": {
-    "link": "/topics/#topic-351e4f47d7",
-    "pending": true
+    "link": "/notes/clock-accuracy-jitter",
+    "pending": false
   },
   "【拓展】有源蜂鸣器与无源蜂鸣器": {
-    "link": "/topics/#topic-6d80fe0201",
-    "pending": true
+    "link": "/notes/buzzers",
+    "pending": false
   },
   "【拓展】测频法与测周法": {
-    "link": "/topics/#topic-a5b92c7bf4",
-    "pending": true
+    "link": "/notes/frequency-period-measurement",
+    "pending": false
   },
   "【拓展】浮点与定点": {
-    "link": "/topics/#topic-1808db85e6",
-    "pending": true
+    "link": "/notes/float-fixed-point",
+    "pending": false
   },
   "【拓展】状态机设计": {
-    "link": "/topics/#topic-3289bd0b6d",
-    "pending": true
+    "link": "/notes/state-machines",
+    "pending": false
   },
   "【拓展】用内部参考电压校准ADC": {
-    "link": "/topics/#topic-31e7df08f6",
-    "pending": true
+    "link": "/notes/adc-internal-reference",
+    "pending": false
   },
   "【拓展】看反汇编": {
-    "link": "/topics/#topic-533ccbd35b",
-    "pending": true
+    "link": "/notes/reading-disassembly",
+    "pending": false
   },
   "【拓展】示波器与逻辑分析仪怎么用": {
-    "link": "/topics/#topic-5a4ffad028",
-    "pending": true
+    "link": "/notes/scope-logic-analyzer",
+    "pending": false
   },
   "【拓展】编码器模式与死区": {
-    "link": "/topics/#topic-6950aa3e75",
-    "pending": true
+    "link": "/notes/encoder-deadtime",
+    "pending": false
   },
   "【拓展】补码为什么成了标准": {
-    "link": "/topics/#topic-c0918976ce",
-    "pending": true
+    "link": "/notes/twos-complement",
+    "pending": false
   },
   "【拓展】让VSCode看懂CMake工程": {
     "link": "/notes/editor-setup",
     "pending": false
   },
   "【拓展】设计模式是什么": {
-    "link": "/topics/#topic-23597877a4",
-    "pending": true
+    "link": "/notes/design-patterns",
+    "pending": false
   },
   "【拓展】调用约定与尾调用优化": {
-    "link": "/topics/#topic-9f298902d6",
-    "pending": true
+    "link": "/notes/calling-conventions",
+    "pending": false
   },
   "【拓展】软件定时器与简易调度器": {
-    "link": "/topics/#topic-4bebe7f78e",
-    "pending": true
+    "link": "/notes/software-timers",
+    "pending": false
   },
   "【拓展】野指针与悬空指针": {
-    "link": "/topics/#topic-9229a999ab",
-    "pending": true
+    "link": "/notes/pointer-lifetime",
+    "pending": false
   },
   "【拓展】量产固件的日志策略与日志泄露": {
-    "link": "/topics/#topic-762d8175bd",
-    "pending": true
+    "link": "/notes/production-logging",
+    "pending": false
   },
   "【拓展】随机数与熵": {
-    "link": "/topics/#topic-55688240ed",
-    "pending": true
+    "link": "/notes/randomness-entropy",
+    "pending": false
   },
   "【拓展】饱和运算": {
-    "link": "/topics/#topic-6160c94390",
-    "pending": true
+    "link": "/notes/saturating-arithmetic",
+    "pending": false
   },
   "D_参考视频映射": {
     "link": "/resources/",
+    "pending": false
+  },
+  "【实践】用Git保存每一次可用的进展": {
+    "link": "/notes/git-workflow",
+    "pending": false
+  },
+  "【实践】用Markdown写清楚工程": {
+    "link": "/notes/markdown-notes",
     "pending": false
   }
 }

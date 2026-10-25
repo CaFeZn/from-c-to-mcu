@@ -235,7 +235,395 @@
     {
       "title": "让 VS Code 看懂 CMake 工程：能构建，却还在画红线",
       "link": "/notes/editor-setup"
+    },
+    {
+      "title": "【原理】变量与内存",
+      "link": "/notes/variables-memory"
+    },
+    {
+      "title": "【原理】数组退化与指针算术",
+      "link": "/notes/array-pointer-arithmetic"
+    },
+    {
+      "title": "【原理】结构体对齐与填充",
+      "link": "/notes/struct-alignment"
+    },
+    {
+      "title": "【原理】缓冲区溢出与边界检查",
+      "link": "/notes/buffer-bounds"
+    },
+    {
+      "title": "【拓展】野指针与悬空指针",
+      "link": "/notes/pointer-lifetime"
+    },
+    {
+      "title": "【拓展】packed位域与union",
+      "link": "/notes/packed-bitfields-unions"
+    },
+    {
+      "title": "【拓展】字节序之争",
+      "link": "/notes/byte-order"
+    },
+    {
+      "title": "【原理】补码与整型转换",
+      "link": "/notes/integer-conversions"
+    },
+    {
+      "title": "【拓展】C为什么不检查溢出",
+      "link": "/notes/integer-overflow"
+    },
+    {
+      "title": "【拓展】浮点与定点",
+      "link": "/notes/float-fixed-point"
+    },
+    {
+      "title": "【拓展】补码为什么成了标准",
+      "link": "/notes/twos-complement"
+    },
+    {
+      "title": "【拓展】饱和运算",
+      "link": "/notes/saturating-arithmetic"
+    },
+    {
+      "title": "【拓展】随机数与熵",
+      "link": "/notes/randomness-entropy"
+    },
+    {
+      "title": "【原理】函数指针与间接调用",
+      "link": "/notes/function-pointer-calls"
+    },
+    {
+      "title": "【原理】栈与函数调用",
+      "link": "/notes/stack-function-calls"
+    },
+    {
+      "title": "【原理】C语言里的面向对象",
+      "link": "/notes/objects-in-c"
+    },
+    {
+      "title": "【拓展】函数指针与虚表",
+      "link": "/notes/function-tables"
+    },
+    {
+      "title": "【拓展】设计模式是什么",
+      "link": "/notes/design-patterns"
+    },
+    {
+      "title": "【拓展】C++入门与嵌入式C++",
+      "link": "/notes/embedded-cpp"
+    },
+    {
+      "title": "【拓展】调用约定与尾调用优化",
+      "link": "/notes/calling-conventions"
+    },
+    {
+      "title": "【原理】volatile与编译器优化",
+      "link": "/notes/volatile-optimization"
+    },
+    {
+      "title": "【拓展】const与restrict",
+      "link": "/notes/const-restrict"
+    },
+    {
+      "title": "【拓展】严格别名与未定义行为",
+      "link": "/notes/strict-aliasing"
+    },
+    {
+      "title": "【拓展】参数求值顺序与未定义行为",
+      "link": "/notes/evaluation-order"
+    },
+    {
+      "title": "【拓展】动态内存与碎片",
+      "link": "/notes/dynamic-memory"
+    },
+    {
+      "title": "【拓展】strtok为什么不可重入",
+      "link": "/notes/strtok-reentrancy"
+    },
+    {
+      "title": "【拓展】宏的高级用法",
+      "link": "/notes/advanced-macros"
+    },
+    {
+      "title": "【原理】CMake如何工作",
+      "link": "/notes/cmake-how-it-works"
+    },
+    {
+      "title": "【原理】预处理器与链接",
+      "link": "/notes/preprocessor-linkage"
+    },
+    {
+      "title": "【原理】可执行文件格式",
+      "link": "/notes/executable-formats"
+    },
+    {
+      "title": "【原理】启动流程与链接脚本",
+      "link": "/notes/startup-linker-script"
+    },
+    {
+      "title": "【原理】弱符号如何让回调生效",
+      "link": "/notes/weak-symbols"
+    },
+    {
+      "title": "【拓展】CMake与增量编译",
+      "link": "/notes/incremental-builds"
+    },
+    {
+      "title": "【拓展】在Windows上安装现代gcc",
+      "link": "/notes/windows-gcc"
+    },
+    {
+      "title": "【原理】读改写与原子性",
+      "link": "/notes/read-modify-write"
+    },
+    {
+      "title": "【原理】中断与NVIC",
+      "link": "/notes/interrupts-nvic"
+    },
+    {
+      "title": "【拓展】中断向量表的由来",
+      "link": "/notes/vector-table"
+    },
+    {
+      "title": "【拓展】中断风暴与忘清标志",
+      "link": "/notes/interrupt-storms"
+    },
+    {
+      "title": "【拓展】LDREX与STREX原子指令",
+      "link": "/notes/exclusive-access"
+    },
+    {
+      "title": "【拓展】内存屏障与指令重排",
+      "link": "/notes/memory-barriers"
+    },
+    {
+      "title": "【拓展】序号锁与双缓冲",
+      "link": "/notes/sequence-double-buffer"
+    },
+    {
+      "title": "【拓展】从协作式到抢占式调度",
+      "link": "/notes/cooperative-preemptive"
+    },
+    {
+      "title": "【拓展】CMSIS如何用结构体描述外设",
+      "link": "/notes/cmsis-peripheral-structs"
+    },
+    {
+      "title": "【拓展】Cortex-M系列差异",
+      "link": "/notes/cortex-m-families"
+    },
+    {
+      "title": "【拓展】MCU MPU与SoC的区别",
+      "link": "/notes/mcu-mpu-soc"
+    },
+    {
+      "title": "【拓展】STM32Cube工具生态",
+      "link": "/notes/stm32cube-tools"
+    },
+    {
+      "title": "【拓展】STM32型号命名与勘误表",
+      "link": "/notes/stm32-part-errata"
+    },
+    {
+      "title": "【原理】汇编如何读写寄存器",
+      "link": "/notes/assembly-register-access"
+    },
+    {
+      "title": "【拓展】看反汇编",
+      "link": "/notes/reading-disassembly"
+    },
+    {
+      "title": "【原理】GPIO内部电路",
+      "link": "/notes/gpio-circuits"
+    },
+    {
+      "title": "【原理】引脚复用机制",
+      "link": "/notes/alternate-functions"
+    },
+    {
+      "title": "【原理】按键抖动与消抖",
+      "link": "/notes/button-debounce"
+    },
+    {
+      "title": "【拓展】5V容忍引脚与电平转换",
+      "link": "/notes/voltage-tolerance"
+    },
+    {
+      "title": "【拓展】GPIO电气参数与保护",
+      "link": "/notes/gpio-electrical"
+    },
+    {
+      "title": "【拓展】有源蜂鸣器与无源蜂鸣器",
+      "link": "/notes/buzzers"
+    },
+    {
+      "title": "【拓展】示波器与逻辑分析仪怎么用",
+      "link": "/notes/scope-logic-analyzer"
+    },
+    {
+      "title": "【原理】PWM与预装载",
+      "link": "/notes/pwm-preload"
+    },
+    {
+      "title": "【原理】SysTick与HAL时基",
+      "link": "/notes/systick-hal-timebase"
+    },
+    {
+      "title": "【原理】定时器工作原理",
+      "link": "/notes/timer-principles"
+    },
+    {
+      "title": "【原理】时钟树",
+      "link": "/notes/clock-tree"
+    },
+    {
+      "title": "【拓展】RTC与32.768kHz长期计时",
+      "link": "/notes/rtc-timekeeping"
+    },
+    {
+      "title": "【拓展】晶振精度与时钟抖动",
+      "link": "/notes/clock-accuracy-jitter"
+    },
+    {
+      "title": "【拓展】测频法与测周法",
+      "link": "/notes/frequency-period-measurement"
+    },
+    {
+      "title": "【拓展】编码器模式与死区",
+      "link": "/notes/encoder-deadtime"
+    },
+    {
+      "title": "【拓展】软件定时器与简易调度器",
+      "link": "/notes/software-timers"
+    },
+    {
+      "title": "【原理】ADC工作原理与采样保持",
+      "link": "/notes/adc-sample-hold"
+    },
+    {
+      "title": "【原理】DMA工作原理",
+      "link": "/notes/dma-principles"
+    },
+    {
+      "title": "【拓展】DMA半传输与流式处理",
+      "link": "/notes/dma-streaming"
+    },
+    {
+      "title": "【拓展】定时器触发ADC采样",
+      "link": "/notes/timer-triggered-adc"
+    },
+    {
+      "title": "【拓展】用内部参考电压校准ADC",
+      "link": "/notes/adc-internal-reference"
+    },
+    {
+      "title": "【原理】printf为什么慢又贵",
+      "link": "/notes/printf-cost"
+    },
+    {
+      "title": "【原理】UART帧格式与波特率",
+      "link": "/notes/uart-framing"
+    },
+    {
+      "title": "【原理】环形缓冲区",
+      "link": "/notes/ring-buffer"
+    },
+    {
+      "title": "【原理】CRC校验",
+      "link": "/notes/crc-principles"
+    },
+    {
+      "title": "【拓展】CRC32与查表实现",
+      "link": "/notes/crc32-table"
+    },
+    {
+      "title": "【拓展】HAL回调的注册方式",
+      "link": "/notes/hal-callbacks"
+    },
+    {
+      "title": "【拓展】串口流控与USB CDC",
+      "link": "/notes/flow-control-usb-cdc"
+    },
+    {
+      "title": "【拓展】文本协议与二进制协议",
+      "link": "/notes/text-binary-protocols"
+    },
+    {
+      "title": "【拓展】状态机设计",
+      "link": "/notes/state-machines"
+    },
+    {
+      "title": "【原理】CAN位定时与采样点",
+      "link": "/notes/can-bit-timing"
+    },
+    {
+      "title": "【原理】CAN总线电气与仲裁",
+      "link": "/notes/can-electrical-arbitration"
+    },
+    {
+      "title": "【原理】CAN错误状态机",
+      "link": "/notes/can-error-states"
+    },
+    {
+      "title": "【拓展】bxCAN过滤器组详解",
+      "link": "/notes/bxcan-filters"
+    },
+    {
+      "title": "【拓展】CAN FD与CANopen简介",
+      "link": "/notes/can-fd-canopen"
+    },
+    {
+      "title": "【拓展】CAN总线拓扑与长度",
+      "link": "/notes/can-topology"
+    },
+    {
+      "title": "【拓展】CAN扩展帧与远程帧",
+      "link": "/notes/can-extended-remote"
+    },
+    {
+      "title": "【拓展】总线负载与优先级设计",
+      "link": "/notes/can-load-priority"
+    },
+    {
+      "title": "【原理】HardFault现场分析",
+      "link": "/notes/hardfault-analysis"
+    },
+    {
+      "title": "【原理】SWD调试原理",
+      "link": "/notes/swd-debugging"
+    },
+    {
+      "title": "【拓展】HardFault现场dump与复位后回放",
+      "link": "/notes/fault-persistence"
+    },
+    {
+      "title": "【拓展】SEGGER_RTT与SWO替代串口日志",
+      "link": "/notes/rtt-swo"
+    },
+    {
+      "title": "【拓展】SWD口的安全与断点数量限制",
+      "link": "/notes/swd-security-breakpoints"
+    },
+    {
+      "title": "【拓展】SWD引脚被占用后的救援",
+      "link": "/notes/swd-recovery"
+    },
+    {
+      "title": "【拓展】为什么能跑和能调试是两件事",
+      "link": "/notes/run-vs-debug"
+    },
+    {
+      "title": "【拓展】量产固件的日志策略与日志泄露",
+      "link": "/notes/production-logging"
+    },
+    {
+      "title": "【实践】用Git保存每一次可用的进展",
+      "link": "/notes/git-workflow"
+    },
+    {
+      "title": "【实践】用Markdown写清楚工程",
+      "link": "/notes/markdown-notes"
     }
   ],
-  "pendingCount": 95
+  "pendingCount": 0
 }

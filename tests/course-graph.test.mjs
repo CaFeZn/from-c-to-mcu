@@ -195,7 +195,9 @@ test('real public docs load as a compact graph without pending-topic or self edg
   assert.equal(targets(graph, '/lessons/1-1').includes('/topics'), false);
   const source = await readFile(new URL('../docs/.vitepress/theme/local-graph.mjs', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /node:|from ['"](?:vitepress|gray-matter|linkedom|markdown-it)['"]/);
-  assert.ok(JSON.stringify(graph).length < 60000);
+  const graphBytes = Buffer.byteLength(JSON.stringify(graph));
+  // Bound the data per node/edge as the curriculum grows, rather than freezing page count.
+  assert.ok(graphBytes < graph.nodes.length * 400 + graph.links.length * 180);
   t.diagnostic(JSON.stringify({ nodes: graph.nodes.length, links: graph.links.length, bytes: Buffer.byteLength(JSON.stringify(graph)) }));
 });
 

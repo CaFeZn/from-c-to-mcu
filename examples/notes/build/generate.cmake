@@ -1,0 +1,6 @@
+file(READ "${INPUT}" value)
+string(STRIP "${value}" value)
+if(NOT value MATCHES "^[1-9][0-9]?$|^100$")
+  message(FATAL_ERROR "schema must contain a decimal integer from 1 to 100")
+endif()
+file(WRITE "${OUTPUT}" "#define RECORD_COUNT ${value}\n")

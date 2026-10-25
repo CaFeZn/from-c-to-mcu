@@ -25,6 +25,9 @@ jobs:
           version: 11.28.5
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
+      - name: Install native example tools
+        run: sudo apt-get update && sudo apt-get install -y cmake ninja-build g++
+      - run: pnpm test:examples
       - run: pnpm build
       - run: pnpm check:links
       - uses: actions/configure-pages@v5

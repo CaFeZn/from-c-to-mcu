@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(serial_notes LANGUAGES C)
+enable_testing()
+add_subdirectory(core)
+add_subdirectory(crc)
+add_subdirectory(hal-flow)

@@ -1,0 +1,4 @@
+#ifndef BUILD_NOTES_CONFIG_H
+#define BUILD_NOTES_CONFIG_H
+#define CLAMP_LIMIT 10
+#endif
